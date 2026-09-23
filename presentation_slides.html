@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Indian Business Excellence Awards 2026 — Presentation Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --navy-deep: #061226;
+      --navy-card: #0c1c36;
+      --navy-card-border: #1e3a5f;
+      --gold-primary: #d4af37;
+      --gold-light: #f3e5ab;
+      --gold-glow: rgba(212, 175, 55, 0.25);
+      --text-main: #ffffff;
+      --text-muted: #94a3b8;
+    }
+    body {
+      background: #020813;
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+    
+    /* Presentation Container (16:9 ratio) */
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at 50% 20%, #0e2448 0%, #061226 70%, #030a16 100%);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.15);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 40px 60px;
+      display: none;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+    }
+    .slide.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* Common Header for interior slides */
+    .slide-header {
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .kicker {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .slide-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .gold-divider {
+      width: 80px;
+      height: 3px;
+      background: var(--gold-primary);
+      margin-top: 10px;
+      border-radius: 2px;
+    }
+
+    /* Grid Layouts */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      height: calc(100% - 90px);
+    }
+    .grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      height: calc(100% - 90px);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 24px;
+      height: calc(100% - 90px);
+    }
+    .grid-2-even {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      height: calc(100% - 90px);
+    }
+
+    /* Card styling */
+    .card {
+      background: rgba(12, 28, 54, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--navy-card-border);
+      border-radius: 12px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card.highlight {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    }
+    .card-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      color: var(--gold-light);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .card-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Slide 1 - Cover */
+    .cover-slide {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 50px 80px;
+      background: radial-gradient(circle at 50% 30%, #163668 0%, #061226 75%);
+    }
+    .org-badge {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-primary);
+      font-size: 1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+    .main-heading {
+      font-family: 'Cinzel', serif;
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #ffffff 30%, #f3e5ab 70%, #d4af37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+      text-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+    }
+    .sub-heading {
+      font-size: 1.25rem;
+      color: #e2e8f0;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+    .venue-pill {
+      background: rgba(12, 28, 54, 0.9);
+      border: 1px solid var(--gold-primary);
+      padding: 14px 30px;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 0.95rem;
+      color: var(--gold-light);
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Timeline Badges */
+    .day-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: var(--gold-primary);
+      font-weight: 800;
+    }
+    .day-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .day-loc {
+      font-size: 0.95rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    /* Controls bar */
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 15px;
+      padding: 0 10px;
+    }
+    .btn-nav {
+      background: var(--navy-card);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover {
+      background: var(--gold-primary);
+      color: #061226;
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+    .counter {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-wrapper" id="deckContainer">
+
+    <!-- SLIDE 1: COVER -->
+    <div class="slide cover-slide active">
+      <div class="org-badge">Indian Business Network Presents</div>
+      <h1 class="main-heading">GLOBAL INDIAN<br>BUSINESS EXCELLENCE AWARDS 2026</h1>
+      <p class="sub-heading">Honouring Indian Business Leaders Creating Global Impact</p>
+      <div>
+        <div class="venue-pill">
+          <span>🏛️ House of Commons, British Parliament, London</span>
+          <span>•</span>
+          <span>📅 5–9 November 2026</span>
+          <span>•</span>
+          <span>🔒 Capped at 100 Guests</span>
+        </div>
+      </div>
+      <p style="margin-top: 25px; font-size: 0.85rem; color: #64748b; letter-spacing: 2px;">
+        CEOS • ENTREPRENEURS • INVESTORS • GLOBAL PROFESSIONALS
+      </p>
+    </div>
+
+    <!-- SLIDE 2: VISION -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Strategic Rationale</div>
+        <h2 class="slide-title">Executive Vision: Redefining Global Indian Impact</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-3">
+        <div class="card highlight">
+          <div class="card-tag">01. HONOUR</div>
+          <div class="card-title">Recognizing Global Benchmark</div>
+          <p class="card-body">Celebrating high-achieving entrepreneurs, investors, and CXOs of Indian heritage who have built sustainable cross-border enterprises and market leadership across the UK, Europe, and the world.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">02. CONNECT</div>
+          <div class="card-title">Bespoke Bilateral Network</div>
+          <p class="card-body">An intimate gathering capped at 100 C-Suite leaders, facilitating direct corridors between Indian titans and British political, trade, and financial decision-makers in sovereign settings.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">03. INSPIRE</div>
+          <div class="card-title">Academic & Research Immersion</div>
+          <p class="card-body">Bridging high-growth corporate capital with world-leading discovery at Oxford, Cambridge, and Imperial College London to stimulate deep-tech and cross-border innovation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: VENUE -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">The Prestige</div>
+        <h2 class="slide-title">The Historic Stage: House of Commons, Westminster</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-tag">AN ICONIC LANDMARK</div>
+          <div class="card-title">Inside the Palace of Westminster</div>
+          <p class="card-body" style="font-size: 0.95rem; margin-bottom: 12px;">
+            The mother of modern parliamentary democracy offers an unprecedented backdrop to celebrate high-impact global enterprise.
+          </p>
+          <ul style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.8; margin-left: 20px;">
+            <li>Formal Awards Ceremony honoring transformational Indian enterprise.</li>
+            <li>Executive Networking Reception overlooking the River Thames.</li>
+            <li>Direct engagement with prominent British parliamentarians and diplomats.</li>
+            <li>Rigorous advance security clearance ensuring total exclusivity.</li>
+          </ul>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="card">
+            <div style="font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 800; color: var(--gold-primary);">100 SEATS</div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">STRICT ATTENDANCE CEILING</p>
+          </div>
+          <div class="card">
+            <div style="font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 800; color: #fff;">5 DAYS</div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">EXPANDED LEADERSHIP PROGRAMME</p>
+          </div>
+          <div class="card">
+            <div style="font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 800; color: var(--gold-light);">3 HUBS</div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">OXFORD • CAMBRIDGE • IMPERIAL</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: TIMELINE -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Master Programme</div>
+        <h2 class="slide-title">5-Day Leadership Itinerary (5–9 November 2026)</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-5">
+        <div class="card highlight">
+          <div class="day-badge">DAY 1</div>
+          <div class="day-date">5 NOV 2026</div>
+          <div class="day-loc">House of Commons</div>
+          <p class="card-body">Global Indian Business Excellence Awards & Executive Networking Reception at the British Parliament.</p>
+        </div>
+        <div class="card">
+          <div class="day-badge">DAY 2</div>
+          <div class="day-date">6 NOV 2026</div>
+          <div class="day-loc">Central London</div>
+          <p class="card-body">Black Tie Gala Dinner & Executive Networking: Gourmet hospitality and high-level bilateral dialogue.</p>
+        </div>
+        <div class="card">
+          <div class="day-badge">DAY 3</div>
+          <div class="day-date">7 NOV 2026</div>
+          <div class="day-loc">Univ. of Oxford</div>
+          <p class="card-body">Oxford Business Leadership Forum & Keynote Panels on geopolitics, international trade, and governance.</p>
+        </div>
+        <div class="card">
+          <div class="day-badge">DAY 4</div>
+          <div class="day-date">8 NOV 2026</div>
+          <div class="day-loc">Cambridge</div>
+          <p class="card-body">University of Cambridge Campus Visit: Deep-tech spinouts, innovation clusters, and collegiate heritage.</p>
+        </div>
+        <div class="card">
+          <div class="day-badge">DAY 5</div>
+          <div class="day-date">9 NOV 2026</div>
+          <div class="day-loc">Imperial College</div>
+          <p class="card-body">Imperial College London Innovation Experience: Artificial Intelligence, frontier tech & entrepreneurship.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: UNIVERSITIES -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Knowledge & Innovation</div>
+        <h2 class="slide-title">Academic Immersion: Oxford, Cambridge & Imperial</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-tag">7 NOVEMBER 2026</div>
+          <div class="card-title">University of Oxford</div>
+          <ul style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.7; margin-left: 18px;">
+            <li>Oxford Business Leadership Forum</li>
+            <li>High-level panel debates on global trade & cross-border expansion</li>
+            <li>Collegiate tour of historic intellectual landmarks</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-tag">8 NOVEMBER 2026</div>
+          <div class="card-title">University of Cambridge</div>
+          <ul style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.7; margin-left: 18px;">
+            <li>Cambridge Phenomenon & tech spinout clusters</li>
+            <li>Bridging global venture capital with scientific research</li>
+            <li>Private campus walkthrough and networking lunch</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-tag">9 NOVEMBER 2026</div>
+          <div class="card-title">Imperial College London</div>
+          <ul style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.7; margin-left: 18px;">
+            <li>Focus on AI, MedTech, and Clean Energy ecosystems</li>
+            <li>Imperial Enterprise Lab showcase & founder pitches</li>
+            <li>Bilateral UK-India commercialization pathways</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: DELEGATE DELIVERABLES -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">The Package</div>
+        <h2 class="slide-title">Executive Delegate Deliverables & Benefits</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-3" style="grid-template-rows: 1fr 1fr; height: calc(100% - 90px);">
+        <div class="card"><div class="card-title">🎖️ Executive Delegate Badge</div><p class="card-body">Official credential granting accredited entry across all 5 summit days, venues, and transit.</p></div>
+        <div class="card"><div class="card-title">🏛️ Parliament Awards Access</div><p class="card-body">Organiser nomination for formal entry to the House of Commons Awards & Reception.</p></div>
+        <div class="card"><div class="card-title">🎩 Black Tie Gala Dinner</div><p class="card-body">Fine multi-course dining and VIP networking evening with high-profile trade dignitaries.</p></div>
+        <div class="card"><div class="card-title">🎓 University Forums Pass</div><p class="card-body">Curated delegation entry to Oxford, Cambridge, and Imperial College London sessions.</p></div>
+        <div class="card"><div class="card-title">🎁 Delegate Welcome Kit</div><p class="card-body">Curated luxury summit briefcase, executive stationery, and commemorative mementos.</p></div>
+        <div class="card"><div class="card-title">📸 Professional Media Kit</div><p class="card-body">High-resolution photography package and press distribution rights for personal/corporate PR.</p></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: AWARDS & SELECTION -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Recognition</div>
+        <h2 class="slide-title">Award Categories & Advisory Vetting</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-tag">8 CORE CATEGORIES</div>
+          <ul style="color: #f1f5f9; font-size: 0.95rem; line-height: 2; margin-left: 20px;">
+            <li>🏆 Global Business Leader of the Year</li>
+            <li>🏆 Disruptive Tech Innovator Award</li>
+            <li>🏆 Cross-Border Trade & Manufacturing Excellence</li>
+            <li>🏆 Sustainable Enterprise & ESG Leadership</li>
+            <li>🏆 Healthcare & Life Sciences Pioneer</li>
+            <li>🏆 Next-Gen Entrepreneur of the Year</li>
+            <li>🏆 Financial Services & Investment Excellence</li>
+            <li>🏆 Women in Global Business Leadership</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-tag">SELECTION METHODOLOGY</div>
+          <div class="card-title">Rigorous Advisory Governance</div>
+          <ul style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.8; margin-left: 18px;">
+            <li><strong>Cross-Border Impact:</strong> Verified scalability across multiple jurisdictions.</li>
+            <li><strong>Innovation Footprint:</strong> Demonstrated proprietary IP or operational breakthroughs.</li>
+            <li><strong>Ethical Governance:</strong> Exemplary track record of leadership integrity and resilience.</li>
+            <li><strong>Peer Review:</strong> Evaluated by the IBN Advisory Committee and global domain experts.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: COMPLIANCE -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Governance & Protocol</div>
+        <h2 class="slide-title">Parliamentary Protocols & Legal Notice</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 18px; height: calc(100% - 90px);">
+        <div class="card highlight" style="border-left: 4px solid var(--gold-primary);">
+          <div class="card-tag" style="color: var(--gold-primary);">IMPORTANT STATUTORY & PROTOCOL NOTICE</div>
+          <p class="card-body" style="color: #e2e8f0; font-size: 0.92rem;">
+            The Global Indian Business Excellence Awards 2026 at the House of Commons, British Parliament, London, is an invitation-only event. Invitations are extended at the discretion of the organisers and are subject to venue protocols and capacity. No fee is charged for attendance at the Awards Ceremony, and the invitation is not sold or assigned any monetary value. Delegate fees relate exclusively to the IBN Business Leadership Programme and associated academic activities.
+          </p>
+        </div>
+        <div class="grid-2-even" style="height: auto; flex: 1;">
+          <div class="card">
+            <div class="card-title">Security & Accreditation</div>
+            <p class="card-body">Valid Government Photographic Passport required for entry at Cromwell Green entrance. Advance security screening is conducted 30 days prior to the summit.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Dress Code & Logistics</div>
+            <p class="card-body">Nov 5: Parliamentary Formal / Lounge Suit. Nov 6: Black Tie / Evening Wear. Nov 7–9: Business Smart Casual. Dedicated coaches provided for Oxford & Cambridge.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: LEADERSHIP -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Secretariat</div>
+        <h2 class="slide-title">Indian Business Network Leadership</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-4" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; height: calc(100% - 90px);">
+        <div class="card highlight">
+          <div class="card-title">Velou Singaram</div>
+          <div class="card-tag">President</div>
+          <p class="card-body" style="font-size: 0.85rem;">Overseeing bilateral partnerships, institutional delegations, and presidential summit addresses.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Jayabalan</div>
+          <div class="card-tag">Secretary</div>
+          <div style="color: var(--gold-light); font-size: 0.8rem; font-weight: 600; margin-bottom: 8px;">+44 7960 446339</div>
+          <p class="card-body" style="font-size: 0.85rem;">Parliamentary liaison, secretariat administration, and security protocol accreditation.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Nagarajan</div>
+          <div class="card-tag">Treasurer</div>
+          <div style="color: var(--gold-light); font-size: 0.8rem; font-weight: 600; margin-bottom: 8px;">+44 7383 969604</div>
+          <p class="card-body" style="font-size: 0.85rem;">Financial governance, corporate partner relations, and delegate sponsorship management.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Subha Austalekshmi</div>
+          <div class="card-tag">Event Coordinator</div>
+          <div style="color: var(--gold-light); font-size: 0.8rem; font-weight: 600; margin-bottom: 8px;">+44 7587 260254</div>
+          <p class="card-body" style="font-size: 0.85rem;">Delegate onboarding, UK visa support letters, accommodation booking, and itinerary concierge.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: CTA -->
+    <div class="slide cover-slide">
+      <div class="org-badge">Final Step</div>
+      <h1 class="main-heading" style="font-size: 2.8rem;">JOIN THE 100 GLOBAL LEADERS</h1>
+      <p class="sub-heading" style="margin-bottom: 25px;">Registrations are processed on a rolling basis and close upon reaching 100 vetted delegates.</p>
+      
+      <div style="background: rgba(12, 28, 54, 0.95); border: 1px solid var(--gold-primary); padding: 25px 40px; border-radius: 14px; max-width: 700px; margin-bottom: 25px;">
+        <div style="font-size: 1.1rem; color: #fff; font-weight: 700; margin-bottom: 12px;">Official Delegate Registration Portal:</div>
+        <a href="https://tally.so/r/NpzrWj" target="_blank" style="color: var(--gold-primary); font-size: 1.4rem; font-weight: 800; text-decoration: none;">👉 https://tally.so/r/NpzrWj</a>
+        <div style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
+          Email: <span style="color: #fff;">events@ibnonline.co.uk</span> | Enquiries: <span style="color: #fff;">+44 7587 260254</span>
+        </div>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--gold-light); letter-spacing: 2px;">INDIAN BUSINESS NETWORK | CONNECT • COLLABORATE • INSPIRE</p>
+    </div>
+
+  </div>
+
+  <!-- Deck Navigation Controls -->
+  <div class="controls">
+    <button class="btn-nav" id="prevBtn" onclick="prevSlide()">◀ Previous</button>
+    <div class="counter" id="slideCounter">Slide 1 of 10</div>
+    <button class="btn-nav" id="nextBtn" onclick="nextSlide()">Next ▶</button>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('slideCounter');
+
+    function showSlide(index) {
+      slides.forEach((s, i) => {
+        s.classList.remove('active');
+        if (i === index) {
+          s.classList.add('active');
+        }
+      });
+      counter.textContent = `Slide ${index + 1} of ${slides.length}`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>

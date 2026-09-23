@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBN London 2026 Mobile App — Executive Presentation Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy-deep: #061226;
+      --navy-card: #0c1c36;
+      --navy-card-border: #1e3a5f;
+      --gold-primary: #d4af37;
+      --gold-light: #f3e5ab;
+      --text-main: #ffffff;
+      --text-muted: #94a3b8;
+    }
+    body {
+      background: #020813;
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at 40% 20%, #0e2448 0%, #061226 70%, #030a16 100%);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.15);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 35px 50px;
+      display: none;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .slide.active { display: flex; opacity: 1; }
+    .slide-header { margin-bottom: 20px; }
+    .kicker {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+    .slide-title { font-size: 1.85rem; font-weight: 700; color: #fff; line-height: 1.2; }
+    .gold-divider { width: 70px; height: 3px; background: var(--gold-primary); margin-top: 8px; border-radius: 2px; }
+
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; height: calc(100% - 85px); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; height: calc(100% - 85px); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; height: calc(100% - 85px); }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; height: calc(100% - 85px); }
+
+    .card {
+      background: rgba(12, 28, 54, 0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--navy-card-border);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .card.highlight { border-color: var(--gold-primary); box-shadow: 0 0 20px rgba(212, 175, 55, 0.15); }
+    .card-tag { font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--gold-light); font-weight: 700; margin-bottom: 6px; }
+    .card-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .card-body { font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; }
+
+    .badge-icon {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 10px;
+      object-fit: contain;
+    }
+
+    .cover-slide {
+      padding: 40px 60px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      background: radial-gradient(circle at 30% 30%, #132f5c 0%, #061226 75%);
+    }
+
+    .controls { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; margin-top: 15px; padding: 0 10px; }
+    .btn-nav {
+      background: var(--navy-card);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover { background: var(--gold-primary); color: #061226; }
+    .counter { color: var(--text-muted); font-size: 0.9rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <div class="deck-wrapper" id="deckContainer">
+
+    <!-- SLIDE 1: COVER WITH BIG BEN -->
+    <div class="slide cover-slide active">
+      <div style="flex: 1.2; z-index: 2;">
+        <img src="presentation_assets/ibn_logo_top.png" style="height: 55px; margin-bottom: 20px;" alt="IBN Logo">
+        <div style="font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--gold-primary); letter-spacing: 2px; font-weight: 700; margin-bottom: 8px;">GLOBAL INDIAN BUSINESS EXCELLENCE AWARDS 2026</div>
+        <h1 style="font-family: 'Cinzel', serif; font-size: 2.5rem; font-weight: 800; line-height: 1.15; color: #fff; margin-bottom: 15px;">
+          EVENT MOBILE APP<br><span style="color: var(--gold-light);">FEATURES & ARCHITECTURE</span>
+        </h1>
+        <p style="font-size: 1.05rem; color: #cbd5e1; margin-bottom: 25px;">
+          A Purpose-Built Digital Companion for 100 C-Suite Global Leaders
+        </p>
+        <div style="background: rgba(12, 28, 54, 0.95); border: 1px solid var(--gold-primary); padding: 12px 24px; border-radius: 50px; display: inline-flex; gap: 15px; font-size: 0.9rem; color: var(--gold-light); font-weight: 600;">
+          <span>🏛️ House of Commons</span>
+          <span>•</span>
+          <span>📅 5–9 Nov 2026</span>
+          <span>•</span>
+          <span>📱 iOS & Android</span>
+        </div>
+      </div>
+      <div style="flex: 0.9; height: 100%; display: flex; justify-content: flex-end; align-items: center;">
+        <img src="presentation_assets/big_ben_tower.png" style="max-height: 90%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);" alt="Big Ben Westminster">
+      </div>
+    </div>
+
+    <!-- SLIDE 2: STRATEGIC CONTEXT -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Executive Context</div>
+        <h2 class="slide-title">Purpose-Built for UHNW Leadership & British Parliament</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-4">
+        <div class="card highlight">
+          <img src="presentation_assets/badges/shield_security.png" class="badge-icon" alt="Security">
+          <div class="card-tag">01. DIPLOMATIC PROTOCOL</div>
+          <div class="card-title">House of Commons</div>
+          <p class="card-body">Westminster requires strict advance security clearance. The app manages identity verification, passport KYC, and anti-counterfeit digital passes.</p>
+        </div>
+        <div class="card">
+          <img src="presentation_assets/badges/coach_transit.png" class="badge-icon" alt="Transit">
+          <div class="card-tag">02. MULTI-CITY TRANSIT</div>
+          <div class="card-title">London, Oxford & Cambridge</div>
+          <p class="card-body">Coordinates 100 VIP delegates across 3 world-renowned academic cities over 5 days, featuring coach GPS tracking and real-time itinerary prompts.</p>
+        </div>
+        <div class="card">
+          <img src="presentation_assets/badges/match_meeting.png" class="badge-icon" alt="Network">
+          <div class="card-tag">03. C-SUITE NETWORKING</div>
+          <div class="card-title">Privacy-Preserved Corridors</div>
+          <p class="card-body">Empowers high-level leaders to connect, chat, and schedule bilateral 1-on-1 meetings without exposing private phone numbers or personal emails.</p>
+        </div>
+        <div class="card">
+          <img src="presentation_assets/badges/payment_card.png" class="badge-icon" alt="Payments">
+          <div class="card-tag">04. COMPLIANT BILLING</div>
+          <div class="card-title">Transparent Package Invoicing</div>
+          <p class="card-body">Automates multi-currency payments and corporate B2B invoicing while maintaining the non-monetary invitation status of the Parliamentary ceremony.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: SYSTEM ARCHITECTURE -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">System Architecture</div>
+        <h2 class="slide-title">Four-Tier Functional Platform Architecture</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; height: calc(100% - 85px);">
+        <div class="card highlight" style="padding: 12px 20px; flex-direction: row; align-items: center; gap: 20px;">
+          <img src="presentation_assets/badges/mobile_wallet.png" style="width: 48px; height: 48px;" alt="Tier 1">
+          <div>
+            <div style="font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--gold-primary);">TIER 1: DELEGATE INTERFACE (iOS & Android)</div>
+            <p class="card-body" style="font-size: 0.83rem;">Digital Delegate Pass (Apple/Google Wallet) • Interactive 5-Day Master Itinerary • Private 1-on-1 Meeting Scheduler • AI Photo Hub.</p>
+          </div>
+        </div>
+        <div class="card" style="padding: 12px 20px; flex-direction: row; align-items: center; gap: 20px;">
+          <img src="presentation_assets/badges/shield_security.png" style="width: 48px; height: 48px;" alt="Tier 2">
+          <div>
+            <div style="font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: #fff;">TIER 2: CORE OPERATIONAL SERVICES</div>
+            <p class="card-body" style="font-size: 0.83rem;">Parliamentary Security Accreditation Engine • Inter-City Transit Tracking • Multi-Currency Gateway & B2B Invoicing • Travel & Visa Vault.</p>
+          </div>
+        </div>
+        <div class="card" style="padding: 12px 20px; flex-direction: row; align-items: center; gap: 20px;">
+          <img src="presentation_assets/badges/executive_vip.png" style="width: 48px; height: 48px;" alt="Tier 3">
+          <div>
+            <div style="font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: #fff;">TIER 3: STAKEHOLDER & VENUE INTEGRATION</div>
+            <p class="card-body" style="font-size: 0.83rem;">House of Commons Security Protocol Integration • University of Oxford & Cambridge Session Agenda • Gala Venue VIP Table Coordination.</p>
+          </div>
+        </div>
+        <div class="card" style="padding: 12px 20px; flex-direction: row; align-items: center; gap: 20px;">
+          <img src="presentation_assets/badges/scanner_gate.png" style="width: 48px; height: 48px;" alt="Tier 4">
+          <div>
+            <div style="font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--gold-light);">TIER 4: SECRETARIAT COMMAND CENTER</div>
+            <p class="card-body" style="font-size: 0.83rem;">Gate Check-In Mobile Scanner App (<2s access) • Real-Time Attendance Monitoring • Segmented VIP Push Broadcast • 24/7 VIP Concierge Hotline.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: CREDENTIALING -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Feature Matrix</div>
+        <h2 class="slide-title">Delegate Credentialing & Parliamentary Security</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-3" style="grid-template-rows: 1fr 1fr;">
+        <div class="card highlight">
+          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+            <img src="presentation_assets/icons/icon_badge.png" style="width: 32px; height: 32px;" alt="Badge">
+            <div class="card-title" style="margin-bottom: 0;">Accreditation Portal</div>
+          </div>
+          <p class="card-body">Pre-event identity capture formatted to satisfy British Parliamentary security vetting. Verifies legal name matching passport, nationality, and photo.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+            <img src="presentation_assets/badges/shield_security.png" style="width: 32px; height: 32px;" alt="Shield">
+            <div class="card-title" style="margin-bottom: 0;">Live Clearance Tracker</div>
+          </div>
+          <p class="card-body">Real-time status indicators informing delegates when their accreditation moves from 'Submitted' to 'Police Cleared' and 'Pass Issued'.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+            <img src="presentation_assets/badges/mobile_wallet.png" style="width: 32px; height: 32px;" alt="QR">
+            <div class="card-title" style="margin-bottom: 0;">Dynamic Anti-Fraud Pass</div>
+          </div>
+          <p class="card-body">Time-synchronized revolving QR code that prevents screenshot sharing and guarantees verified identity at venue gates.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+            <img src="presentation_assets/icons/icon_badge.png" style="width: 32px; height: 32px;" alt="Wallet">
+            <div class="card-title" style="margin-bottom: 0;">Apple & Google Wallet</div>
+          </div>
+          <p class="card-body">One-tap pass installation directly to iPhone or Android lock screens, configured to automatically appear near Westminster.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+            <img src="presentation_assets/icons/icon_cert.png" style="width: 32px; height: 32px;" alt="Cert">
+            <div class="card-title" style="margin-bottom: 0;">Credential Tiers</div>
+          </div>
+          <p class="card-body">Visual badges distinguishing Award Winners, Executive Delegates, Keynote Speakers, Advisory Committee, and Media.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+            <img src="presentation_assets/badges/visa_vault.png" style="width: 32px; height: 32px;" alt="Vault">
+            <div class="card-title" style="margin-bottom: 0;">Visa & Document Vault</div>
+          </div>
+          <p class="card-body">Secure offline repository for official stamped IBN UK Visa Support Letters, hotel confirmations, and transfer vouchers.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: 5-DAY TIMELINE -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Feature Matrix</div>
+        <h2 class="slide-title">5-Day Multi-City Logistics & Campus Experience</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-5">
+        <div class="card highlight">
+          <div class="card-tag">DAY 1: 5 NOV</div>
+          <div class="card-title">House of Commons</div>
+          <p class="card-body" style="margin-bottom: 15px;">Cromwell Green gate guidance, security protocol check-in, and formal Parliamentary Awards agenda.</p>
+          <img src="presentation_assets/commons_crest.png" style="max-height: 40px; object-fit: contain; margin-top: auto;" alt="Commons">
+        </div>
+        <div class="card">
+          <div class="card-tag">DAY 2: 6 NOV</div>
+          <div class="card-title">London Gala</div>
+          <p class="card-body">VIP table allocations, multi-course dining timeline, and Black Tie / Tuxedo attire guidance.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">DAY 3: 7 NOV</div>
+          <div class="card-title">Univ of Oxford</div>
+          <p class="card-body" style="margin-bottom: 15px;">Coach departure tracking, Oxford Business Leadership Forum schedule, and live interactive session Q&A.</p>
+          <img src="presentation_assets/oxford_crest.png" style="max-height: 40px; object-fit: contain; margin-top: auto;" alt="Oxford">
+        </div>
+        <div class="card">
+          <div class="card-tag">DAY 4: 8 NOV</div>
+          <div class="card-title">Cambridge Tour</div>
+          <p class="card-body" style="margin-bottom: 15px;">Cambridge departure alerts, deep-tech research hub itinerary, and collegiate walking route guides.</p>
+          <img src="presentation_assets/cambridge_crest.png" style="max-height: 40px; object-fit: contain; margin-top: auto;" alt="Cambridge">
+        </div>
+        <div class="card">
+          <div class="card-tag">DAY 5: 9 NOV</div>
+          <div class="card-title">Imperial College</div>
+          <p class="card-body" style="margin-bottom: 15px;">AI venture presentations, enterprise showcase, networking luncheon, and official closing delegation.</p>
+          <img src="presentation_assets/imperial_crest.png" style="max-height: 40px; object-fit: contain; margin-top: auto;" alt="Imperial">
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: PAYMENTS -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Feature Matrix</div>
+        <h2 class="slide-title">Financial Management & Corporate Invoicing Hub</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-2">
+        <div class="card highlight">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/badges/payment_card.png" style="width: 44px; height: 44px;" alt="Card">
+            <div>
+              <div class="card-tag">GLOBAL MULTI-CURRENCY</div>
+              <div class="card-title" style="margin-bottom: 0;">Multi-Currency Checkout</div>
+            </div>
+          </div>
+          <p class="card-body">Seamless checkout supporting British Pounds (£), US Dollars ($), Euros (€), and Indian Rupees (₹). Supports international corporate credit cards, Apple Pay, Google Pay, UPI, and Net Banking.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/icons/icon_cert.png" style="width: 44px; height: 44px;" alt="Invoice">
+            <div>
+              <div class="card-tag">B2B EXPENSE COMPLIANCE</div>
+              <div class="card-title" style="margin-bottom: 0;">Automated B2B Invoicing</div>
+            </div>
+          </div>
+          <p class="card-body">Instant PDF generation of compliant commercial tax invoices including Corporate Name, GSTIN, and UK VAT details for corporate expense claims.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/badges/shield_security.png" style="width: 44px; height: 44px;" alt="Shield">
+            <div>
+              <div class="card-tag">STATUTORY SEPARATION</div>
+              <div class="card-title" style="margin-bottom: 0;">Package Transparency</div>
+            </div>
+          </div>
+          <p class="card-body">Itemizes packages exclusively for the 'IBN Business Leadership Programme' (academic sessions, gala hospitality, and transit), maintaining parliamentary non-commercial status.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/badges/visa_vault.png" style="width: 44px; height: 44px;" alt="SWIFT">
+            <div>
+              <div class="card-tag">CORPORATE REMITTANCE</div>
+              <div class="card-title" style="margin-bottom: 0;">Wire Transfer / SWIFT Flow</div>
+            </div>
+          </div>
+          <p class="card-body">Enables corporate finance teams to upload official bank transfer or SWIFT/NEFT remittance receipts with automated secretariat verification.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: NETWORKING -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Feature Matrix</div>
+        <h2 class="slide-title">Executive Networking & Business Matchmaking</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/icons/icon_network.png" style="width: 44px; height: 44px;" alt="Network">
+            <div>
+              <div class="card-tag">EXCLUSIVE DIRECTORY</div>
+              <div class="card-title" style="margin-bottom: 0;">Verified 100-Leader Directory</div>
+            </div>
+          </div>
+          <p class="card-body">Private, searchable roster of attending CEOs, investors, and founders. Filterable by industry sector, geographical focus, and investment appetite.</p>
+        </div>
+        <div class="card highlight">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/badges/match_meeting.png" style="width: 44px; height: 44px;" alt="Match">
+            <div>
+              <div class="card-tag">DEAL-FLOW CORRIDOR</div>
+              <div class="card-title" style="margin-bottom: 0;">1-on-1 Meeting Scheduler</div>
+            </div>
+          </div>
+          <p class="card-body">Empowers delegates to request, schedule, and confirm 15-minute private meetings during designated summit networking breaks with built-in agenda sync.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/badges/shield_security.png" style="width: 44px; height: 44px;" alt="Chat">
+            <div>
+              <div class="card-tag">PRIVACY FIRST</div>
+              <div class="card-title" style="margin-bottom: 0;">Privacy-Protected Chat</div>
+            </div>
+          </div>
+          <p class="card-body">Facilitates direct executive messaging within the platform. Mobile numbers and personal email addresses remain shielded unless mutually shared.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/badges/mobile_wallet.png" style="width: 44px; height: 44px;" alt="NFC">
+            <div>
+              <div class="card-tag">CONTACTLESS EXCHANGE</div>
+              <div class="card-title" style="margin-bottom: 0;">Digital Business Card</div>
+            </div>
+          </div>
+          <p class="card-body">Instant peer contact exchange via contactless phone tap (NFC) or badge QR scan, saving directly into mobile phone address books.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: AI PHOTO HUB -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Feature Matrix</div>
+        <h2 class="slide-title">AI-Powered Photo Experience & Media Hub</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; height: calc(100% - 85px);">
+        <div class="card highlight">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/icons/icon_photo.png" style="width: 44px; height: 44px;" alt="Photo">
+            <div>
+              <div class="card-tag">PERSONALIZED PR ENGINE</div>
+              <div class="card-title" style="margin-bottom: 0;">How the AI Media Hub Works</div>
+            </div>
+          </div>
+          <ul style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.8; margin-left: 20px; margin-top: 10px;">
+            <li><strong>Official Photographer Ingestion:</strong> Summit media teams upload high-res event photos directly from Westminster, Gala, and Universities.</li>
+            <li><strong>AI Facial Recognition:</strong> Delegates upload a single reference selfie during onboarding. The platform automatically indexes and isolates all images containing that delegate.</li>
+            <li><strong>Private 'My Moments' Gallery:</strong> Delegates access a curated gallery containing exclusively their summit moments within hours.</li>
+            <li><strong>High-Res PR Export:</strong> Single-tap download of press-ready, high-resolution RAW/JPEG assets ready for corporate communications.</li>
+          </ul>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="card"><div class="card-title" style="color: var(--gold-primary);">INSTANT ACCESS</div><p class="card-body">Zero waiting for manual photographer sorting.</p></div>
+          <div class="card"><div class="card-title" style="color: #fff;">PRESS-READY QUALITY</div><p class="card-body">Full-resolution original print-ready assets.</p></div>
+          <div class="card"><div class="card-title" style="color: var(--gold-light);">1-CLICK SOCIAL PR</div><p class="card-body">Pre-formatted exports for LinkedIn & Instagram.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: SECRETARIAT COMMAND -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">Operational Control</div>
+        <h2 class="slide-title">Onsite Secretariat Operations & Command Center</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-2">
+        <div class="card highlight">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/badges/scanner_gate.png" style="width: 44px; height: 44px;" alt="Scanner">
+            <div>
+              <div class="card-tag">RAPID CHECK-IN</div>
+              <div class="card-title" style="margin-bottom: 0;">Gate Access Mobile Scanner</div>
+            </div>
+          </div>
+          <p class="card-body">Dedicated staff mode for mobile phones and tablets to scan delegate QR codes at the House of Commons and Gala doors in under two seconds.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/badges/executive_vip.png" style="width: 44px; height: 44px;" alt="Headcount">
+            <div>
+              <div class="card-tag">HEADCOUNT INTELLIGENCE</div>
+              <div class="card-title" style="margin-bottom: 0;">Real-Time Attendance Monitoring</div>
+            </div>
+          </div>
+          <p class="card-body">Live visibility into attendance counts inside the House of Commons, banquet halls, and passenger boarding for inter-city coach transfers.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/badges/shield_security.png" style="width: 44px; height: 44px;" alt="Manifest">
+            <div>
+              <div class="card-tag">PARLIAMENTARY COMPLIANCE</div>
+              <div class="card-title" style="margin-bottom: 0;">Parliament Manifest Export</div>
+            </div>
+          </div>
+          <p class="card-body">One-click export of the accredited guest manifest conforming exactly to British Parliamentary Security and Police format requirements.</p>
+        </div>
+        <div class="card">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 10px;">
+            <img src="presentation_assets/badges/visa_vault.png" style="width: 44px; height: 44px;" alt="Hotline">
+            <div>
+              <div class="card-tag">EXECUTIVE CONCIERGE</div>
+              <div class="card-title" style="margin-bottom: 0;">Emergency VIP Concierge Hotline</div>
+            </div>
+          </div>
+          <p class="card-body">Integrated one-touch hotline connecting delegates directly to the IBN Event Coordinator and secretariat leads for instant travel and venue support.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: LEADERSHIP PORTRAITS -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="kicker">IBN Leadership</div>
+        <h2 class="slide-title">Organising Leadership & Secretariat Contacts</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid-4">
+        <div class="card highlight" style="align-items: center; text-align: center;">
+          <img src="presentation_assets/portrait_velou.png" style="width: 90px; height: 90px; border-radius: 50%; border: 2px solid var(--gold-primary); margin-bottom: 10px; object-fit: cover;" alt="Velou Singaram">
+          <div class="card-title" style="margin-bottom: 2px;">VELOU SINGARAM</div>
+          <div class="card-tag">President</div>
+          <p class="card-body" style="font-size: 0.8rem;">Leading bilateral institutional relations and presidential summit addresses.</p>
+        </div>
+        <div class="card" style="align-items: center; text-align: center;">
+          <img src="presentation_assets/portrait_jayabalan.png" style="width: 90px; height: 90px; border-radius: 50%; border: 2px solid #334155; margin-bottom: 10px; object-fit: cover;" alt="Jayabalan">
+          <div class="card-title" style="margin-bottom: 2px;">JAYABALAN</div>
+          <div class="card-tag">Secretary</div>
+          <div style="color: var(--gold-light); font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">+44 7960 446339</div>
+          <p class="card-body" style="font-size: 0.8rem;">Parliamentary liaison, secretariat administration, and security protocol accreditation.</p>
+        </div>
+        <div class="card" style="align-items: center; text-align: center;">
+          <img src="presentation_assets/portrait_nagarajan.png" style="width: 90px; height: 90px; border-radius: 50%; border: 2px solid #334155; margin-bottom: 10px; object-fit: cover;" alt="Nagarajan">
+          <div class="card-title" style="margin-bottom: 2px;">NAGARAJAN</div>
+          <div class="card-tag">Treasurer</div>
+          <div style="color: var(--gold-light); font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">+44 7383 969604</div>
+          <p class="card-body" style="font-size: 0.8rem;">Financial governance, corporate partner relations, and delegate sponsorship management.</p>
+        </div>
+        <div class="card" style="align-items: center; text-align: center;">
+          <img src="presentation_assets/portrait_subha.png" style="width: 90px; height: 90px; border-radius: 50%; border: 2px solid #334155; margin-bottom: 10px; object-fit: cover;" alt="Subha Austalekshmi">
+          <div class="card-title" style="margin-bottom: 2px;">SUBHA AUSTALEKSHMI</div>
+          <div class="card-tag">Event Coordinator</div>
+          <div style="color: var(--gold-light); font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">+44 7587 260254</div>
+          <p class="card-body" style="font-size: 0.8rem;">Delegate onboarding, UK visa support letters, accommodation booking, and concierge.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="btn-nav" onclick="prevSlide()">◀ Previous</button>
+    <div class="counter" id="slideCounter">Slide 1 of 10</div>
+    <button class="btn-nav" onclick="nextSlide()">Next ▶</button>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('slideCounter');
+
+    function showSlide(index) {
+      slides.forEach((s, i) => {
+        s.classList.remove('active');
+        if (i === index) s.classList.add('active');
+      });
+      counter.textContent = `Slide ${index + 1} of ${slides.length}`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      else if (e.key === 'ArrowLeft') prevSlide();
+    });
+  </script>
+</body>
+</html>
