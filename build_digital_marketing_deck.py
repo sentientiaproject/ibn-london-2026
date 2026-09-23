@@ -11,7 +11,6 @@ def create_strategy_deck():
     prs.slide_height = Inches(7.5)
     blank_layout = prs.slide_layouts[6]
 
-    # Regal Palette
     NAVY_DARK = RGBColor(6, 18, 38)       # #061226
     NAVY_CARD = RGBColor(12, 28, 54)      # #0C1C36
     NAVY_LIGHT = RGBColor(18, 38, 72)     # #122648
@@ -109,7 +108,7 @@ def create_strategy_deck():
     p1.space_after = Pt(12)
 
     p2 = tf.add_paragraph()
-    p2.text = "Mobile App • Official Website • LinkedIn • Facebook • Instagram • WhatsApp • Email Newsletter\nHouse of Commons, British Parliament • Oxford • Cambridge • Imperial College London"
+    p2.text = "Mobile App • Website • LinkedIn • Facebook • Instagram • WhatsApp • Email • Print Collateral\nHouse of Commons, British Parliament • Oxford • Cambridge • Imperial College London"
     p2.font.name = "Calibri"
     p2.font.size = Pt(13)
     p2.font.color.rgb = WHITE
@@ -126,7 +125,7 @@ def create_strategy_deck():
     pp.font.color.rgb = GOLD
 
     pp2 = ptf.add_paragraph()
-    pp2.text = "A Multi-Touchpoint Promotion Strategy for Global Indian C-Suite Leadership"
+    pp2.text = "Digital Platform Strategy • Print Collateral • Onsite Event Distribution"
     pp2.font.name = "Calibri"
     pp2.font.size = Pt(11.5)
     pp2.font.color.rgb = MUTED_GRAY
@@ -220,14 +219,56 @@ def create_strategy_deck():
         p2.font.color.rgb = MUTED_GRAY
 
     # ==========================================
-    # SLIDE 4: LinkedIn Marketing Strategy
+    # SLIDE 4: Printable Brochure & Onsite Template Distribution
     # ==========================================
     s4 = prs.slides.add_slide(blank_layout)
     set_bg(s4)
-    add_header(s4, "LinkedIn Promotion: C-Suite Authority & Thought Leadership", "MARKETING STRATEGY: LINKEDIN")
+    add_header(s4, "Printable Brochure & Onsite Event Template Distribution", "EVENT COLLATERAL & DISTRIBUTION")
 
-    li_left = add_card(s4, Inches(0.8), Inches(1.8), Inches(7.2), Inches(4.9), NAVY_CARD, GOLD)
-    lbox = s4.shapes.add_textbox(Inches(1.1), Inches(2.05), Inches(6.6), Inches(4.4))
+    print_cards = [
+        ("presentation_assets/icons/icon_kit.png", "Print-Ready Executive Brochure", "Luxury multi-page commemorative brochure formatted in high-resolution CMYK with gold-foil finish specs. Available as a downloadable print PDF and placed inside the physical delegate welcome briefcase.", GOLD),
+        ("presentation_assets/icons/icon_cert.png", "Award Winner Press Release Kits", "Pre-formatted press release templates and high-res digital award crests distributed to winners to instantly syndicate to international news agencies (Bloomberg, PTI, Financial Times, Reuters).", WHITE),
+        ("presentation_assets/badges/match_meeting.png", "Bilateral MoU & Deal Templates", "Standardized bilateral business cooperation and investment intent (MoU) templates provided during the Oxford & Imperial forums to facilitate immediate partnership signings.", GOLD_LIGHT),
+        ("presentation_assets/icons/icon_badge.png", "Onsite Delegate Stationery & Badges", "Custom embossed executive lanyards, personalized summit itinerary handbooks, table seating cards, and formal embossed Participation Certificates presented on Day 5.", WHITE),
+    ]
+
+    for p_idx, (ic_path, p_head, p_body, p_col) in enumerate(print_cards):
+        row = p_idx // 2
+        col = p_idx % 2
+        px = Inches(0.8 + col * 6.04)
+        py = Inches(1.8 + row * 2.5)
+        add_card(s4, px, py, Inches(5.68), Inches(2.2), NAVY_CARD, GOLD if p_idx==0 else None)
+
+        if os.path.exists(ic_path):
+            s4.shapes.add_picture(ic_path, px + Inches(0.25), py + Inches(0.25), Inches(0.65), Inches(0.65))
+
+        box = s4.shapes.add_textbox(px + Inches(1.05), py + Inches(0.2), Inches(4.4), Inches(1.8))
+        tf = box.text_frame
+        tf.word_wrap = True
+
+        p1 = tf.paragraphs[0]
+        p1.text = "✦ " + p_head
+        p1.font.name = "Georgia"
+        p1.font.size = Pt(15)
+        p1.font.bold = True
+        p1.font.color.rgb = p_col
+        p1.space_after = Pt(6)
+
+        p2 = tf.add_paragraph()
+        p2.text = p_body
+        p2.font.name = "Calibri"
+        p2.font.size = Pt(11.5)
+        p2.font.color.rgb = MUTED_GRAY
+
+    # ==========================================
+    # SLIDE 5: LinkedIn Marketing Strategy
+    # ==========================================
+    s5 = prs.slides.add_slide(blank_layout)
+    set_bg(s5)
+    add_header(s5, "LinkedIn Promotion: C-Suite Authority & Thought Leadership", "MARKETING STRATEGY: LINKEDIN")
+
+    li_left = add_card(s5, Inches(0.8), Inches(1.8), Inches(7.2), Inches(4.9), NAVY_CARD, GOLD)
+    lbox = s5.shapes.add_textbox(Inches(1.1), Inches(2.05), Inches(6.6), Inches(4.4))
     ltf = lbox.text_frame
     ltf.word_wrap = True
 
@@ -254,7 +295,6 @@ def create_strategy_deck():
         p.font.color.rgb = WHITE
         p.space_after = Pt(6)
 
-    # Right Column: Targeting & Tactics
     li_right_items = [
         ("TARGET AUDIENCE", "Indian Founders, CEOs, Investors (UK, India, UAE, US, Europe)"),
         ("HASHTAG STRATEGY", "#GlobalIndianAwards #HouseOfCommons #UKIndiaTrade #IBN2026"),
@@ -262,8 +302,8 @@ def create_strategy_deck():
     ]
     for r_idx, (r_title, r_desc) in enumerate(li_right_items):
         ry = Inches(1.8 + r_idx * 1.68)
-        add_card(s4, Inches(8.3), ry, Inches(4.233), Inches(1.5), NAVY_LIGHT)
-        box = s4.shapes.add_textbox(Inches(8.5), ry + Inches(0.2), Inches(3.8), Inches(1.1))
+        add_card(s5, Inches(8.3), ry, Inches(4.233), Inches(1.5), NAVY_LIGHT)
+        box = s5.shapes.add_textbox(Inches(8.5), ry + Inches(0.2), Inches(3.8), Inches(1.1))
         tf = box.text_frame
         tf.word_wrap = True
 
@@ -281,11 +321,11 @@ def create_strategy_deck():
         p2.font.color.rgb = WHITE
 
     # ==========================================
-    # SLIDE 5: Facebook Marketing Strategy
+    # SLIDE 6: Facebook Marketing Strategy
     # ==========================================
-    s5 = prs.slides.add_slide(blank_layout)
-    set_bg(s5)
-    add_header(s5, "Facebook Promotion: Diaspora Communities & Multi-Card Carousels", "MARKETING STRATEGY: FACEBOOK")
+    s6 = prs.slides.add_slide(blank_layout)
+    set_bg(s6)
+    add_header(s6, "Facebook Promotion: Diaspora Communities & Multi-Card Carousels", "MARKETING STRATEGY: FACEBOOK")
 
     fb_cards = [
         ("Official Event Page Hub", "Create a verified Facebook Event Page: 'Global Indian Business Excellence Awards 2026 — London', serving as the primary RSVP and live announcement center.", GOLD),
@@ -299,9 +339,9 @@ def create_strategy_deck():
         col = f_idx % 2
         fx = Inches(0.8 + col * 6.04)
         fy = Inches(1.8 + row * 2.5)
-        add_card(s5, fx, fy, Inches(5.68), Inches(2.2), NAVY_CARD, GOLD if f_idx==1 else None)
+        add_card(s6, fx, fy, Inches(5.68), Inches(2.2), NAVY_CARD, GOLD if f_idx==1 else None)
 
-        box = s5.shapes.add_textbox(fx + Inches(0.3), fy + Inches(0.25), Inches(5.08), Inches(1.7))
+        box = s6.shapes.add_textbox(fx + Inches(0.3), fy + Inches(0.25), Inches(5.08), Inches(1.7))
         tf = box.text_frame
         tf.word_wrap = True
 
@@ -320,11 +360,11 @@ def create_strategy_deck():
         p2.font.color.rgb = MUTED_GRAY
 
     # ==========================================
-    # SLIDE 6: Instagram Marketing Strategy
+    # SLIDE 7: Instagram Marketing Strategy
     # ==========================================
-    s6 = prs.slides.add_slide(blank_layout)
-    set_bg(s6)
-    add_header(s6, "Instagram Promotion: Visual Prestige, Cinematic Reels & Stories", "MARKETING STRATEGY: INSTAGRAM")
+    s7 = prs.slides.add_slide(blank_layout)
+    set_bg(s7)
+    add_header(s7, "Instagram Promotion: Visual Prestige, Cinematic Reels & Stories", "MARKETING STRATEGY: INSTAGRAM")
 
     ig_cards = [
         ("Cinematic Luxury Reels (9:16)", "35-second high-energy cinematic clips: Big Ben twilight aerials, red-carpet Black Tie gala, Oxford colleges, and the Parliament terrace.", GOLD),
@@ -338,9 +378,9 @@ def create_strategy_deck():
         col = i_idx % 2
         ix = Inches(0.8 + col * 6.04)
         iy = Inches(1.8 + row * 2.5)
-        add_card(s6, ix, iy, Inches(5.68), Inches(2.2), NAVY_CARD, GOLD if i_idx==0 else None)
+        add_card(s7, ix, iy, Inches(5.68), Inches(2.2), NAVY_CARD, GOLD if i_idx==0 else None)
 
-        box = s6.shapes.add_textbox(ix + Inches(0.3), iy + Inches(0.25), Inches(5.08), Inches(1.7))
+        box = s7.shapes.add_textbox(ix + Inches(0.3), iy + Inches(0.25), Inches(5.08), Inches(1.7))
         tf = box.text_frame
         tf.word_wrap = True
 
@@ -359,11 +399,11 @@ def create_strategy_deck():
         p2.font.color.rgb = MUTED_GRAY
 
     # ==========================================
-    # SLIDE 7: WhatsApp Marketing & Concierge
+    # SLIDE 8: WhatsApp Marketing & Concierge
     # ==========================================
-    s7 = prs.slides.add_slide(blank_layout)
-    set_bg(s7)
-    add_header(s7, "WhatsApp Strategy: High-Touch VIP Concierge & Direct Outreach", "MARKETING STRATEGY: WHATSAPP")
+    s8 = prs.slides.add_slide(blank_layout)
+    set_bg(s8)
+    add_header(s8, "WhatsApp Strategy: High-Touch VIP Concierge & Direct Outreach", "MARKETING STRATEGY: WHATSAPP")
 
     wa_cards = [
         ("Personalized 1-on-1 VIP Outreach", "Direct confidential invitations sent to nominated CEOs and industry titans with personalized PDF invitations and brochure attachments.", GOLD),
@@ -377,9 +417,9 @@ def create_strategy_deck():
         col = w_idx % 2
         wx = Inches(0.8 + col * 6.04)
         wy = Inches(1.8 + row * 2.5)
-        add_card(s7, wx, wy, Inches(5.68), Inches(2.2), NAVY_CARD, GOLD if w_idx==1 else None)
+        add_card(s8, wx, wy, Inches(5.68), Inches(2.2), NAVY_CARD, GOLD if w_idx==1 else None)
 
-        box = s7.shapes.add_textbox(wx + Inches(0.3), wy + Inches(0.25), Inches(5.08), Inches(1.7))
+        box = s8.shapes.add_textbox(wx + Inches(0.3), wy + Inches(0.25), Inches(5.08), Inches(1.7))
         tf = box.text_frame
         tf.word_wrap = True
 
@@ -398,11 +438,11 @@ def create_strategy_deck():
         p2.font.color.rgb = MUTED_GRAY
 
     # ==========================================
-    # SLIDE 8: Email Newsletter Drip Sequence
+    # SLIDE 9: Email Newsletter Drip Sequence
     # ==========================================
-    s8 = prs.slides.add_slide(blank_layout)
-    set_bg(s8)
-    add_header(s8, "Email Newsletter Campaign: 4-Stage High-Conversion VIP Drip", "MARKETING STRATEGY: EMAIL")
+    s9 = prs.slides.add_slide(blank_layout)
+    set_bg(s9)
+    add_header(s9, "Email Newsletter Campaign: 4-Stage High-Conversion VIP Drip", "MARKETING STRATEGY: EMAIL")
 
     emails = [
         ("EMAIL 1: VIP INVITATION", "The British Parliament Calling", "Formal high-touch invitation addressed directly to C-Suite leaders detailing the 5-day summit, House of Commons prestige, and the 100-seat ceiling.", GOLD),
@@ -414,9 +454,9 @@ def create_strategy_deck():
     for e_idx, (e_phase, e_title, e_desc, e_col) in enumerate(emails):
         ex = Inches(0.8 + e_idx * 3.03)
         ey = Inches(1.8)
-        add_card(s8, ex, ey, Inches(2.83), Inches(4.9), NAVY_CARD, GOLD if e_idx==0 else None)
+        add_card(s9, ex, ey, Inches(2.83), Inches(4.9), NAVY_CARD, GOLD if e_idx==0 else None)
 
-        box = s8.shapes.add_textbox(ex + Inches(0.2), ey + Inches(0.3), Inches(2.43), Inches(4.3))
+        box = s9.shapes.add_textbox(ex + Inches(0.2), ey + Inches(0.3), Inches(2.43), Inches(4.3))
         tf = box.text_frame
         tf.word_wrap = True
 
@@ -443,25 +483,25 @@ def create_strategy_deck():
         p3.font.color.rgb = MUTED_GRAY
 
     # ==========================================
-    # SLIDE 9: Integrated Marketing Funnel
+    # SLIDE 10: Integrated Marketing Funnel
     # ==========================================
-    s9 = prs.slides.add_slide(blank_layout)
-    set_bg(s9)
-    add_header(s9, "Integrated Multi-Channel Conversion Funnel", "MARKETING EXECUTION")
+    s10 = prs.slides.add_slide(blank_layout)
+    set_bg(s10)
+    add_header(s10, "Integrated Multi-Channel Conversion Funnel", "MARKETING EXECUTION")
 
     funnel_stages = [
         ("STAGE 1: AWARENESS", "LinkedIn & Media PR", "Thought leadership articles, official press releases, and executive announcements establishing global prestige."),
         ("STAGE 2: ENGAGEMENT", "Instagram & Facebook", "Cinematic video reels, carousel ads, and community discussions highlighting Oxford, Cambridge, and the Gala."),
         ("STAGE 3: CONVERSION", "Website & WhatsApp", "Official vetting portal on the website (Tally embed) supported by 1-on-1 WhatsApp VIP concierge consultations."),
-        ("STAGE 4: NURTURING", "Email Drip & App", "Targeted 4-stage email newsletters, security vetting confirmations, and digital mobile pass activation."),
+        ("STAGE 4: NURTURING", "Email Drip & Mobile App", "Targeted 4-stage email newsletters, security vetting confirmations, and digital mobile pass activation."),
     ]
 
     for s_idx, (f_stage, f_chan, f_desc) in enumerate(funnel_stages):
         sx = Inches(0.8 + s_idx * 3.03)
         sy = Inches(1.8)
-        add_card(s9, sx, sy, Inches(2.83), Inches(4.9), NAVY_CARD, GOLD if s_idx==2 else None)
+        add_card(s10, sx, sy, Inches(2.83), Inches(4.9), NAVY_CARD, GOLD if s_idx==2 else None)
 
-        box = s9.shapes.add_textbox(sx + Inches(0.2), sy + Inches(0.3), Inches(2.43), Inches(4.3))
+        box = s10.shapes.add_textbox(sx + Inches(0.2), sy + Inches(0.3), Inches(2.43), Inches(4.3))
         tf = box.text_frame
         tf.word_wrap = True
 
