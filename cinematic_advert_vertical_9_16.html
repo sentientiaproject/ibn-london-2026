@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBN London 2026 — 9:16 Vertical Cinematic Reel (15s)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Three.js CDN for 3D graphics -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #020713;
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: 20px 10px;
+    }
+
+    /* Header Nav */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 440px;
+      margin-bottom: 14px;
+      padding: 0 4px;
+    }
+    .top-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      color: #d4af37;
+      font-weight: 700;
+    }
+    .badge-format {
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      color: #fce79a;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    /* Video Frame (9:16 Vertical Mobile Aspect Ratio - e.g. 1080x1920) */
+    .player-container {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 9 / 16;
+      background: #000;
+      border-radius: 18px;
+      border: 1.5px solid rgba(212, 175, 55, 0.5);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(212, 175, 55, 0.25);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    /* 3D WebGL Canvas Layer */
+    #threeCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* 2D Overlay Video Layers */
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px 24px;
+    }
+
+    /* Vignette & Glowing Flare */
+    .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(2, 7, 19, 0.8) 85%, #020713 100%);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .anamorphic-flare {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.9) 50%, transparent 100%);
+      filter: blur(1px);
+      box-shadow: 0 0 20px 4px rgba(212, 175, 55, 0.6), 0 0 40px 8px rgba(100, 180, 255, 0.35);
+      z-index: 4;
+      pointer-events: none;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    /* Scene Container */
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Typography */
+    .gold-kicker {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      color: #d4af37;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+    }
+    .cinematic-headline {
+      font-family: 'Cinzel', serif;
+      font-size: 2.1rem;
+      font-weight: 900;
+      line-height: 1.15;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 25%, #f5e6b3 60%, #d4af37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
+      margin-bottom: 12px;
+    }
+    .sub-glow {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      font-weight: 400;
+      letter-spacing: 1px;
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+
+    /* Animated Lotus Logo */
+    .lotus-container {
+      width: 120px;
+      height: 95px;
+      margin-bottom: 16px;
+      position: relative;
+      filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.65));
+    }
+    .lotus-petal {
+      position: absolute;
+      transform-origin: bottom center;
+      transition: transform 0.1s;
+    }
+
+    /* VIP Badge Pill */
+    .vip-pill {
+      background: rgba(12, 28, 54, 0.9);
+      border: 1px solid #d4af37;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+      padding: 8px 18px;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #f3e5ab;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* Package Cards in Scene 3 (Vertical Stack for 9:16) */
+    .packages-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .pkg-card {
+      background: rgba(12, 28, 54, 0.85);
+      border: 1px solid #1e3a5f;
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+    }
+    .pkg-card.best-value {
+      border-color: #d4af37;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(12, 28, 54, 0.9) 100%);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    }
+    .pkg-left {
+      text-align: left;
+    }
+    .pkg-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.88rem;
+      color: #fff;
+      font-weight: 800;
+    }
+    .pkg-sub {
+      font-size: 0.7rem;
+      color: #94a3b8;
+    }
+    .pkg-price {
+      font-family: 'Cinzel', serif;
+      font-size: 1.35rem;
+      color: #d4af37;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    /* Floating Badges in Scene 2 */
+    .location-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 12px;
+      max-width: 320px;
+    }
+    .loc-tag {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    /* CTA Button in Scene 4 */
+    .cta-button {
+      background: linear-gradient(135deg, #d4af37 0%, #aa8528 100%);
+      color: #061226;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 0.95rem;
+      padding: 12px 24px;
+      border-radius: 50px;
+      letter-spacing: 1px;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+      margin-top: 14px;
+      display: inline-block;
+    }
+
+    /* Player Controls Bar */
+    .controls-bar {
+      width: 100%;
+      max-width: 420px;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #091529;
+      border: 1px solid #1e3a5f;
+      padding: 12px 16px;
+      border-radius: 12px;
+    }
+    .controls-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn-play {
+      background: linear-gradient(135deg, #d4af37 0%, #aa8528 100%);
+      color: #061226;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      transition: all 0.2s;
+    }
+    .btn-play:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+    }
+    .time-display {
+      font-family: 'Cinzel', monospace;
+      font-size: 0.85rem;
+      color: #d4af37;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+    .slider-track {
+      width: 100%;
+      accent-color: #d4af37;
+      cursor: pointer;
+      height: 6px;
+    }
+    .controls-row-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .btn-action {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: 0.2s;
+    }
+    .btn-action:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: #d4af37;
+      color: #fce79a;
+    }
+    .btn-record {
+      background: rgba(220, 38, 38, 0.2);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+    }
+    .btn-record:hover {
+      background: #ef4444;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-title">IBN LONDON 2026</div>
+    <div class="badge-format">9:16 REEL / STATUS</div>
+  </div>
+
+  <!-- Main 9:16 Video Player Container -->
+  <div class="player-container" id="videoViewport">
+    <!-- WebGL Three.js Canvas Layer -->
+    <canvas id="threeCanvas"></canvas>
+
+    <!-- Film Vignette & Anamorphic Flare -->
+    <div class="vignette"></div>
+    <div class="anamorphic-flare" id="flare"></div>
+
+    <!-- Video Overlay Scenes -->
+    <div class="video-overlay">
+
+      <!-- SCENE 1: (0.0s - 3.8s) The Awakening & Lotus Blossom -->
+      <div class="scene" id="scene1">
+        <!-- SVG Lotus Animated Vector -->
+        <div class="lotus-container" id="lotusWrap">
+          <svg viewBox="0 0 100 80" width="100%" height="100%">
+            <!-- Center Petal -->
+            <path id="petalCenter" class="lotus-petal" d="M 50 10 C 40 30, 42 60, 50 70 C 58 60, 60 30, 50 10 Z" fill="url(#goldGrad)" />
+            <!-- Left Petal 1 -->
+            <path id="petalLeft1" class="lotus-petal" d="M 50 70 C 35 60, 20 40, 25 22 C 38 32, 45 52, 50 70 Z" fill="url(#goldGrad2)" opacity="0.9" />
+            <!-- Right Petal 1 -->
+            <path id="petalRight1" class="lotus-petal" d="M 50 70 C 65 60, 80 40, 75 22 C 62 32, 55 52, 50 70 Z" fill="url(#goldGrad2)" opacity="0.9" />
+            <!-- Left Petal 2 -->
+            <path id="petalLeft2" class="lotus-petal" d="M 50 70 C 30 65, 5 50, 10 35 C 22 42, 38 58, 50 70 Z" fill="url(#goldGrad3)" opacity="0.75" />
+            <!-- Right Petal 2 -->
+            <path id="petalRight2" class="lotus-petal" d="M 50 70 C 70 65, 95 50, 90 35 C 78 42, 62 58, 50 70 Z" fill="url(#goldGrad3)" opacity="0.75" />
+            
+            <defs>
+              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="40%" stop-color="#f5e6b3" />
+                <stop offset="100%" stop-color="#b8860b" />
+              </linearGradient>
+              <linearGradient id="goldGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f5e6b3" />
+                <stop offset="100%" stop-color="#8a6710" />
+              </linearGradient>
+              <linearGradient id="goldGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#e2c875" />
+                <stop offset="100%" stop-color="#5a4205" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="gold-kicker" id="s1Kicker">INDIAN BUSINESS NETWORK</div>
+        <h1 class="cinematic-headline" id="s1Headline" style="font-size: 1.85rem;">GLOBAL INDIAN<br>EXCELLENCE</h1>
+        <p class="sub-glow" id="s1Sub">WHERE HERITAGE MEETS GLOBAL PRESTIGE</p>
+        <div class="vip-pill" id="s1Badge">👑 LONDON • NOVEMBER 2026</div>
+      </div>
+
+      <!-- SCENE 2: (3.8s - 7.5s) Power Venues & Westminster -->
+      <div class="scene" id="scene2">
+        <div class="gold-kicker">HISTORIC VENUES</div>
+        <h2 class="cinematic-headline" style="font-size: 1.95rem;">HOUSE OF<br>COMMONS</h2>
+        <p class="sub-glow">PALACE OF WESTMINSTER • LONDON</p>
+        
+        <div class="vip-pill" style="margin-bottom: 8px;">🇬🇧 5–9 NOVEMBER 2026</div>
+
+        <div class="location-tags">
+          <span class="loc-tag">🏛️ House of Commons</span>
+          <span class="loc-tag">🎓 Oxford University</span>
+          <span class="loc-tag">🎓 Cambridge University</span>
+          <span class="loc-tag">🔬 Imperial College</span>
+          <span class="loc-tag">✨ Central London Gala</span>
+        </div>
+      </div>
+
+      <!-- SCENE 3: (7.5s - 11.5s) Exclusive Leadership Packages -->
+      <div class="scene" id="scene3">
+        <div class="gold-kicker">DELEGATE PACKAGES</div>
+        <h2 class="cinematic-headline" style="font-size: 1.7rem; margin-bottom: 6px;">CHOOSE YOUR ACCESS</h2>
+        <p class="sub-glow" style="font-size: 0.8rem; margin-bottom: 8px;">Exclusive Leadership Programme Passes</p>
+
+        <div class="packages-col">
+          <div class="pkg-card">
+            <div class="pkg-left">
+              <div class="pkg-title">SILVER PASS</div>
+              <div class="pkg-sub">1-Day Gala + Keynote</div>
+            </div>
+            <div class="pkg-price">£750</div>
+          </div>
+          <div class="pkg-card best-value">
+            <div class="pkg-left">
+              <div class="pkg-title">GOLD DELEGATE ⭐</div>
+              <div class="pkg-sub">2-Day Summit + Forum</div>
+            </div>
+            <div class="pkg-price">£1,000</div>
+          </div>
+          <div class="pkg-card">
+            <div class="pkg-left">
+              <div class="pkg-title">PLATINUM VIP</div>
+              <div class="pkg-sub">5-Day All-Access Pass</div>
+            </div>
+            <div class="pkg-price">£1,500</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 4: (11.5s - 15.0s) Final Call to Action -->
+      <div class="scene" id="scene4">
+        <div class="vip-pill" style="border-color: #ef4444; color: #fca5a5; margin-bottom: 12px;">
+          ⚠️ STRICTLY 100 INVITATIONS
+        </div>
+        <h2 class="cinematic-headline" style="font-size: 2.1rem; line-height: 1.15;">RESERVE<br>YOUR LEGACY</h2>
+        <p class="sub-glow" style="margin-bottom: 8px; font-size: 0.88rem;">BY INVITATION ONLY</p>
+        <a href="https://tally.so/r/NpzrWj" target="_blank" class="cta-button">APPLY FOR INVITATION →</a>
+        <p style="font-size: 0.72rem; color: #94a3b8; margin-top: 14px; letter-spacing: 1px;">
+          WWW.IBN.ORG.IN • LONDON 2026
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Player Controls Bar -->
+  <div class="controls-bar">
+    <div class="controls-row-top">
+      <button class="btn-play" id="btnPlay" onclick="togglePlay()">
+        <span id="playIcon">▶</span> <span id="playText">PLAY REEL</span>
+      </button>
+      <div class="time-display" id="timeDisplay">00:00 / 00:15</div>
+    </div>
+
+    <input type="range" id="timeSlider" class="slider-track" min="0" max="450" value="0" oninput="onSeek(this.value)">
+
+    <div class="controls-row-bottom">
+      <a href="cinematic_advert_15s.html" class="btn-action">🖥️ 16:9 Cinema</a>
+      <a href="index.html" class="btn-action">🌐 Event Site</a>
+      <button class="btn-action btn-record" id="btnRecord" onclick="startExport()">⏺ Export Reel</button>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. DETERMINISTIC REMOTION TIMING ENGINE
+    // ==========================================
+    const FPS = 30;
+    const TOTAL_SECONDS = 15;
+    const TOTAL_FRAMES = FPS * TOTAL_SECONDS; // 450 frames
+    let currentFrame = 0;
+    let isPlaying = false;
+    let animationTimer = null;
+
+    // ==========================================
+    // 2. PROCEDURAL WEB AUDIO SYNTHESIZER
+    // ==========================================
+    let audioCtx = null;
+    let audioInitiated = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      audioInitiated = true;
+    }
+
+    function playCinematicImpact(timeOffset = 0, pitch = 65, duration = 2.2) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      const filter = audioCtx.createBiquadFilter();
+
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(pitch, audioCtx.currentTime + timeOffset);
+      osc.frequency.exponentialRampToValueAtTime(28, audioCtx.currentTime + timeOffset + duration);
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(320, audioCtx.currentTime + timeOffset);
+      filter.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + timeOffset + duration);
+
+      gain.gain.setValueAtTime(0.7, audioCtx.currentTime + timeOffset);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + timeOffset + duration);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(audioCtx.currentTime + timeOffset);
+      osc.stop(audioCtx.currentTime + timeOffset + duration);
+    }
+
+    function playBrassSwell(timeOffset = 0) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const osc2 = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'triangle';
+      osc2.type = 'sine';
+      osc.frequency.setValueAtTime(110, audioCtx.currentTime + timeOffset);
+      osc2.frequency.setValueAtTime(164.81, audioCtx.currentTime + timeOffset);
+
+      gain.gain.setValueAtTime(0.01, audioCtx.currentTime + timeOffset);
+      gain.gain.linearRampToValueAtTime(0.4, audioCtx.currentTime + timeOffset + 1.2);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + timeOffset + 3.0);
+
+      osc.connect(gain);
+      osc2.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(audioCtx.currentTime + timeOffset);
+      osc2.start(audioCtx.currentTime + timeOffset);
+      osc.stop(audioCtx.currentTime + timeOffset + 3.0);
+      osc2.stop(audioCtx.currentTime + timeOffset + 3.0);
+    }
+
+    function playChime(timeOffset = 0, freq = 880) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime + timeOffset);
+      gain.gain.setValueAtTime(0.25, audioCtx.currentTime + timeOffset);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + timeOffset + 1.2);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(audioCtx.currentTime + timeOffset);
+      osc.stop(audioCtx.currentTime + timeOffset + 1.2);
+    }
+
+    function triggerAudioCuesForFrame(f) {
+      if (!audioInitiated) return;
+      if (f === 1) {
+        playCinematicImpact(0, 75, 2.5);
+        playBrassSwell(0);
+      }
+      if (f === 60) playChime(0, 1046.5);
+      if (f === 114) {
+        playCinematicImpact(0, 65, 2.2);
+        playBrassSwell(0.2);
+      }
+      if (f === 225) {
+        playCinematicImpact(0, 85, 2.0);
+        playChime(0, 1318.5);
+      }
+      if (f === 345) {
+        playCinematicImpact(0, 55, 3.2);
+        playBrassSwell(0.1);
+        playChime(0.5, 1760.0);
+      }
+    }
+
+    // ==========================================
+    // 3. THREE.JS 3D SCENE SETUP (VERTICAL RATIO)
+    // ==========================================
+    const canvas = document.getElementById('threeCanvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, 9 / 16, 0.1, 1000);
+    camera.position.z = 24;
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      renderer.setSize(rect.width, rect.height, false);
+      camera.aspect = rect.width / rect.height;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Golden Floating Starfield / Particles
+    const PARTICLE_COUNT = 900;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(PARTICLE_COUNT * 3);
+    const colors = new Float32Array(PARTICLE_COUNT * 3);
+
+    const goldColor = new THREE.Color(0xd4af37);
+    const lightGold = new THREE.Color(0xfff3c4);
+    const blueColor = new THREE.Color(0x38bdf8);
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      positions[i * 3 + 0] = (Math.random() - 0.5) * 35;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 55;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 35;
+
+      const pick = Math.random();
+      const col = pick > 0.4 ? goldColor : (pick > 0.2 ? lightGold : blueColor);
+      colors[i * 3 + 0] = col.r;
+      colors[i * 3 + 1] = col.g;
+      colors[i * 3 + 2] = col.b;
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+      size: 0.18,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    // Glowing Golden Core Ring
+    const ringGeo = new THREE.TorusGeometry(5.2, 0.04, 16, 100);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0xd4af37,
+      transparent: true,
+      opacity: 0.45,
+      wireframe: true
+    });
+    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+    scene.add(ringMesh);
+
+    // ==========================================
+    // 4. ANIMATION FRAME INTERPOLATOR
+    // ==========================================
+    function interpolate(frame, [inStart, inEnd], [outStart, outEnd]) {
+      if (frame <= inStart) return outStart;
+      if (frame >= inEnd) return outEnd;
+      const ratio = (frame - inStart) / (inEnd - inStart);
+      return outStart + ratio * (outEnd - outStart);
+    }
+
+    function renderFrame(frame) {
+      // 3D Scene Physics & Camera Motion
+      particles.rotation.y = frame * 0.005;
+      particles.rotation.x = Math.sin(frame * 0.003) * 0.2;
+      particles.position.y = (frame * 0.02) % 4 - 2;
+
+      ringMesh.rotation.x = 1.1 + Math.sin(frame * 0.02) * 0.15;
+      ringMesh.rotation.y = frame * 0.015;
+      ringMesh.scale.setScalar(1 + Math.sin(frame * 0.04) * 0.08);
+
+      camera.position.z = 24 - (frame / TOTAL_FRAMES) * 5;
+      renderer.render(scene, camera);
+
+      // DOM Scene Transitions
+      const s1 = document.getElementById('scene1');
+      const s2 = document.getElementById('scene2');
+      const s3 = document.getElementById('scene3');
+      const s4 = document.getElementById('scene4');
+      const flare = document.getElementById('flare');
+
+      // Flare flash on scene cuts
+      if (frame === 114 || frame === 225 || frame === 345) {
+        flare.style.opacity = 1;
+        setTimeout(() => flare.style.opacity = 0, 150);
+      }
+
+      // SCENE 1: Frames 0 - 114 (0.0s - 3.8s)
+      if (frame >= 0 && frame < 114) {
+        s1.style.opacity = interpolate(frame, [0, 20], [0, 1]) * interpolate(frame, [95, 114], [1, 0]);
+        s2.style.opacity = 0;
+        s3.style.opacity = 0;
+        s4.style.opacity = 0;
+
+        // Animated Blossom of Lotus
+        const blossom = interpolate(frame, [5, 65], [0, 1]);
+        const pLeft1 = document.getElementById('petalLeft1');
+        const pLeft2 = document.getElementById('petalLeft2');
+        const pRight1 = document.getElementById('petalRight1');
+        const pRight2 = document.getElementById('petalRight2');
+
+        pLeft1.style.transform = `scale(${blossom}) rotate(${-15 * blossom}deg)`;
+        pLeft2.style.transform = `scale(${blossom}) rotate(${-30 * blossom}deg)`;
+        pRight1.style.transform = `scale(${blossom}) rotate(${15 * blossom}deg)`;
+        pRight2.style.transform = `scale(${blossom}) rotate(${30 * blossom}deg)`;
+
+        const s1Scale = 0.95 + (frame / 114) * 0.1;
+        s1.style.transform = `scale(${s1Scale})`;
+      }
+      // SCENE 2: Frames 114 - 225 (3.8s - 7.5s)
+      else if (frame >= 114 && frame < 225) {
+        s1.style.opacity = 0;
+        s2.style.opacity = interpolate(frame, [114, 130], [0, 1]) * interpolate(frame, [205, 225], [1, 0]);
+        s3.style.opacity = 0;
+        s4.style.opacity = 0;
+
+        const s2Y = interpolate(frame, [114, 140], [30, 0]);
+        const s2Scale = 0.96 + ((frame - 114) / 111) * 0.08;
+        s2.style.transform = `scale(${s2Scale}) translateY(${s2Y}px)`;
+      }
+      // SCENE 3: Frames 225 - 345 (7.5s - 11.5s)
+      else if (frame >= 225 && frame < 345) {
+        s1.style.opacity = 0;
+        s2.style.opacity = 0;
+        s3.style.opacity = interpolate(frame, [225, 240], [0, 1]) * interpolate(frame, [325, 345], [1, 0]);
+        s4.style.opacity = 0;
+
+        const s3Scale = 0.98 + ((frame - 225) / 120) * 0.06;
+        s3.style.transform = `scale(${s3Scale})`;
+      }
+      // SCENE 4: Frames 345 - 450 (11.5s - 15.0s)
+      else {
+        s1.style.opacity = 0;
+        s2.style.opacity = 0;
+        s3.style.opacity = 0;
+        s4.style.opacity = interpolate(frame, [345, 360], [0, 1]);
+
+        const s4Y = interpolate(frame, [345, 375], [25, 0]);
+        s4.style.transform = `translateY(${s4Y}px)`;
+      }
+
+      // UI Counter
+      document.getElementById('timeSlider').value = frame;
+      const currentSec = (frame / FPS).toFixed(1);
+      document.getElementById('timeDisplay').textContent = `00:${currentSec.padStart(4, '0')} / 00:15`;
+    }
+
+    // ==========================================
+    // 5. PLAYBACK CONTROLLER
+    // ==========================================
+    function step() {
+      if (!isPlaying) return;
+      currentFrame++;
+      if (currentFrame > TOTAL_FRAMES) {
+        currentFrame = 0;
+      }
+      triggerAudioCuesForFrame(currentFrame);
+      renderFrame(currentFrame);
+      animationTimer = requestAnimationFrame(step);
+    }
+
+    function togglePlay() {
+      initAudio();
+      isPlaying = !isPlaying;
+      const btnText = document.getElementById('playText');
+      const icon = document.getElementById('playIcon');
+
+      if (isPlaying) {
+        btnText.textContent = 'PAUSE';
+        icon.textContent = '⏸';
+        step();
+      } else {
+        btnText.textContent = 'PLAY REEL';
+        icon.textContent = '▶';
+        cancelAnimationFrame(animationTimer);
+      }
+    }
+
+    function onSeek(val) {
+      currentFrame = parseInt(val);
+      renderFrame(currentFrame);
+    }
+
+    // Render initial Frame 0
+    renderFrame(0);
+
+    // ==========================================
+    // 6. VIDEO RECORDER (EXPORT 9:16 WEBM)
+    // ==========================================
+    async function startExport() {
+      initAudio();
+      const btn = document.getElementById('btnRecord');
+      btn.textContent = '⏳ RENDERING...';
+      btn.style.background = '#eab308';
+      btn.style.color = '#000';
+
+      const stream = canvas.captureStream(30);
+      const recorder = new MediaRecorder(stream, {
+        mimeType: 'video/webm;codecs=vp9',
+        videoBitsPerSecond: 8000000
+      });
+
+      const chunks = [];
+      recorder.ondataavailable = (e) => {
+        if (e.data.size > 0) chunks.push(e.data);
+      };
+
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'IBN_London_2026_Cinematic_Reel_9x16.webm';
+        a.click();
+
+        btn.textContent = '✅ EXPORT COMPLETE';
+        btn.style.background = '#10b981';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+          btn.textContent = '⏺ Export Reel';
+          btn.style.background = 'rgba(220, 38, 38, 0.2)';
+          btn.style.color = '#fca5a5';
+        }, 4000);
+      };
+
+      recorder.start();
+      isPlaying = false;
+      cancelAnimationFrame(animationTimer);
+
+      for (let f = 0; f <= TOTAL_FRAMES; f++) {
+        currentFrame = f;
+        triggerAudioCuesForFrame(f);
+        renderFrame(f);
+        await new Promise((r) => setTimeout(r, 1000 / FPS));
+      }
+
+      recorder.stop();
+    }
+  </script>
+</body>
+</html>

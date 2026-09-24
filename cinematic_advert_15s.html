@@ -290,16 +290,19 @@
     .backdrop-image {
       position: absolute;
       top: 0;
-      left: 0;
-      width: 100%;
+      right: 0;
+      width: 55%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.45;
-      mix-blend-mode: lighten;
+      object-position: center top;
+      opacity: 0;
+      mix-blend-mode: screen;
       pointer-events: none;
       z-index: 1;
-      filter: contrast(1.15) brightness(0.9);
-      transition: transform 0.1s linear;
+      filter: contrast(1.2) brightness(0.85);
+      transition: opacity 0.3s linear, transform 0.1s linear;
+      mask-image: linear-gradient(to right, transparent 0%, black 60%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 60%);
     }
   </style>
 </head>
@@ -311,8 +314,8 @@
     <!-- 3D Background Canvas -->
     <canvas id="threeCanvas"></canvas>
 
-    <!-- Photo Backdrop of Westminster at dusk -->
-    <img src="presentation_assets/poster_packages.jpg" id="bgPhoto" class="backdrop-image" alt="Westminster Atmosphere">
+    <!-- Photo Backdrop of Big Ben & Westminster at dusk -->
+    <img src="presentation_assets/big_ben_tower.png" id="bgPhoto" class="backdrop-image" alt="Westminster Atmosphere">
 
     <!-- Film Vignette & Anamorphic Gold Flare -->
     <div class="vignette"></div>
@@ -420,9 +423,9 @@
       
       <div style="background: rgba(12, 28, 54, 0.95); border: 1px solid #d4af37; border-radius: 12px; padding: 14px 35px; margin-bottom: 18px; box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);">
         <div style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 4px;">Official Delegate Registration Portal:</div>
-        <div style="font-family: 'Cinzel', serif; font-size: 1.6rem; color: #d4af37; font-weight: 800; letter-spacing: 1px;">
-          👉 https://tally.so/r/NpzrWj
-        </div>
+        <a href="https://tally.so/r/NpzrWj" target="_blank" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; color: #d4af37; font-weight: 800; letter-spacing: 0.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+          🔗 tally.so/r/NpzrWj
+        </a>
       </div>
 
       <div style="display: flex; gap: 30px; font-size: 0.95rem; color: #cbd5e1;">
@@ -446,6 +449,12 @@
     <button class="btn-record" id="btnRecord" onclick="startExport()">
       ⏺ EXPORT 15s HD VIDEO
     </button>
+    <a href="cinematic_advert_vertical_9_16.html" style="color: #d4af37; text-decoration: none; font-size: 0.82rem; font-weight: 700; border: 1px solid rgba(212, 175, 55, 0.4); padding: 8px 14px; border-radius: 6px; background: rgba(212, 175, 55, 0.1); white-space: nowrap;">
+      📱 9:16 Mobile Reel
+    </a>
+    <a href="index.html" style="color: #94a3b8; text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 8px 12px; white-space: nowrap;">
+      🌐 Event Site
+    </a>
     <input type="range" id="timeSlider" class="time-slider" min="0" max="450" value="0" oninput="onSeek(this.value)">
     <div class="time-display" id="timeDisplay">00:00 / 00:15</div>
   </div>
@@ -677,6 +686,11 @@
       // 2. Background Photo Slow Push & Parallax
       const bgZoom = 1.0 + (frame / TOTAL_FRAMES) * 0.15;
       bgPhoto.style.transform = `scale(${bgZoom}) translateY(${-(frame * 0.05)}px)`;
+      if (frame >= 114 && frame < 225) {
+        bgPhoto.style.opacity = interpolate(frame, [114, 135], [0, 0.45]) * interpolate(frame, [205, 225], [1, 0]);
+      } else {
+        bgPhoto.style.opacity = 0;
+      }
 
       // 3. Anamorphic Flare Pulses on Scene Transitions
       if ((frame >= 110 && frame <= 130) || (frame >= 220 && frame <= 240) || (frame >= 340 && frame <= 360)) {
