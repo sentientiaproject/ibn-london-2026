@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const FFMPEG_PATH = path.resolve(__dirname, '.venv/Lib/site-packages/imageio_ffmpeg/binaries/ffmpeg-win-x86_64-v7.1.exe');
-const AUDIO_PATH = path.resolve(__dirname, 'soundtrack_high_energy.wav');
+const AUDIO_PATH = path.resolve(__dirname, 'soundtrack_corporate_high_octane.wav');
 const OUTPUT_MP4 = path.resolve(__dirname, 'IBN_London_2026_Cinematic_Advert_9x16.mp4');
 
 const FPS = 30;

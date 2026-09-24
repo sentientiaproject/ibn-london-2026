@@ -3,18 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IBN London 2026 — High-Energy Kinetic Commercial (15s)</title>
+  <title>IBN London 2026 — High-Octane Corporate Commercial (15s)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Montserrat:wght@800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --gold-primary: #d4af37;
+      --gold-bright: #ffd700;
+      --gold-light: #fef08a;
+      --navy-deep: #030816;
+      --navy-card: rgba(10, 24, 52, 0.92);
+      --navy-border: rgba(212, 175, 55, 0.45);
+    }
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
     body {
-      background: #020612;
+      background: #02050e;
       color: #fff;
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
@@ -31,10 +39,10 @@
       width: 100%;
       max-width: 1100px;
       aspect-ratio: 16 / 9;
-      background: #030816;
-      border-radius: 12px;
-      border: 2px solid rgba(212, 175, 55, 0.6);
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 60px rgba(212, 175, 55, 0.25);
+      background: var(--navy-deep);
+      border-radius: 14px;
+      border: 2px solid var(--navy-border);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 50px rgba(212, 175, 55, 0.2);
       position: relative;
       overflow: hidden;
       display: flex;
@@ -43,73 +51,46 @@
       user-select: none;
     }
 
-    /* High-Energy Motion Background: Dynamic Cyber Grids & Speed Radial */
-    .motion-bg {
+    /* Sophisticated Corporate Motion Background (No 3JS, No Photos) */
+    .corporate-bg {
       position: absolute;
       inset: 0;
       background: 
-        radial-gradient(circle at 50% 50%, rgba(16, 42, 84, 0.8) 0%, rgba(3, 8, 22, 0.98) 75%),
-        linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
-      background-size: 100% 100%, 60px 60px, 60px 60px;
+        radial-gradient(circle at 50% 40%, rgba(18, 46, 94, 0.85) 0%, rgba(2, 6, 17, 0.98) 75%),
+        linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 175, 55, 0.04) 1px, transparent 1px);
+      background-size: 100% 100%, 50px 50px, 50px 50px;
       z-index: 1;
       pointer-events: none;
     }
 
-    /* Big Ben Tower Graphic Layer */
-    .tower-bg {
+    /* Kinetic Glow Rings & Horizon Lines */
+    .horizon-glow {
       position: absolute;
-      right: 4%;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 92%;
-      max-width: 45%;
-      object-fit: contain;
-      opacity: 0;
-      filter: contrast(1.25) drop-shadow(0 0 35px rgba(212, 175, 55, 0.4));
+      bottom: -100px;
+      left: 10%;
+      right: 10%;
+      height: 200px;
+      background: radial-gradient(ellipse at 50% 50%, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
+      filter: blur(25px);
       z-index: 2;
       pointer-events: none;
-      transition: opacity 0.15s, transform 0.15s;
     }
 
-    /* Light Leak & Shockwave Flash */
+    /* Flash Strobe Transition */
     .strobe-flash {
       position: absolute;
       inset: 0;
-      background: #fff;
+      background: #ffffff;
       opacity: 0;
-      z-index: 10;
+      z-index: 20;
       pointer-events: none;
       mix-blend-mode: overlay;
+      transition: opacity 0.1s ease-out;
     }
 
-    .shockwave-ring {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      border: 3px solid #d4af37;
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      z-index: 3;
-      pointer-events: none;
-      box-shadow: 0 0 40px #d4af37, inset 0 0 40px #d4af37;
-    }
-
-    /* Speed Streaks */
-    .speed-lines {
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(212, 175, 55, 0.04) 40px, rgba(212, 175, 55, 0.04) 42px);
-      z-index: 2;
-      opacity: 0.6;
-      pointer-events: none;
-    }
-
-    /* Scene Overlays */
-    .scene-container {
+    /* Scene Container */
+    .scene-viewport {
       position: absolute;
       inset: 0;
       z-index: 5;
@@ -117,8 +98,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 30px 50px;
+      padding: 40px 60px;
       pointer-events: none;
     }
 
@@ -129,189 +109,254 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 30px 40px;
+      padding: 30px 50px;
       opacity: 0;
       pointer-events: none;
     }
 
-    /* KINETIC TYPOGRAPHY STYLING */
-    .kinetic-word {
-      display: inline-block;
-      transform-origin: center center;
-      will-change: transform, opacity;
+    /* ===================================================
+       PROPER TEXT ANIMATION & TYPOGRAPHY ARCHITECTURE
+       =================================================== */
+    /* Masked Container: Words emerge from below a clean clip mask */
+    .text-mask {
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.15;
+      padding: 2px 0;
     }
 
-    .slam-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 3.8rem;
+    .text-line {
+      display: inline-block;
+      transform: translateY(110%);
+      opacity: 0;
+      will-change: transform, opacity;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease-out;
+    }
+
+    /* Typography Hierarchy */
+    .gold-kicker {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      letter-spacing: 6px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+    }
+
+    .headline-large {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 3.6rem;
       font-weight: 900;
-      line-height: 1.05;
+      line-height: 1.08;
       text-transform: uppercase;
       letter-spacing: -1px;
       color: #fff;
-      text-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
-      margin-bottom: 12px;
+      text-shadow: 0 0 35px rgba(255, 255, 255, 0.4);
+      margin-bottom: 14px;
+      text-align: center;
     }
 
-    .gold-shimmer {
-      background: linear-gradient(90deg, #fff 0%, #ffd700 30%, #ffae00 70%, #fff 100%);
+    .gold-shimmer-text {
+      background: linear-gradient(90deg, #ffffff 0%, #ffd700 25%, #d4af37 50%, #ffffff 80%);
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: goldShimmer 2s linear infinite;
-      text-shadow: 0 0 35px rgba(212, 175, 55, 0.7);
+      animation: shimmerFlow 2.5s linear infinite;
     }
-    @keyframes goldShimmer {
+    @keyframes shimmerFlow {
       0% { background-position: 0% center; }
       100% { background-position: 200% center; }
     }
 
-    .gold-kicker-bold {
-      font-family: 'Cinzel', serif;
-      font-size: 1.25rem;
-      letter-spacing: 6px;
-      color: #d4af37;
-      text-transform: uppercase;
-      font-weight: 800;
-      margin-bottom: 14px;
-      text-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
-    }
-
-    .sub-punch {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #e2e8f0;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    /* Kinetic Badges */
-    .kinetic-badge {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(12, 28, 54, 0.95) 100%);
-      border: 2px solid #d4af37;
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.2);
-      padding: 12px 30px;
+    /* Premium Vector Glass Badges */
+    .corporate-badge {
+      background: rgba(12, 28, 54, 0.85);
+      border: 1.5px solid var(--gold-primary);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+      padding: 10px 26px;
       border-radius: 50px;
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       color: #fff;
       font-weight: 800;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    /* Vector Icon Wrappers */
+    .vector-icon-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
+    }
+    .vector-svg {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      min-height: 24px;
+      display: inline-block;
+      vertical-align: middle;
+      fill: none;
+      stroke: var(--gold-bright);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .pkg-icon-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold-bright);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
     }
 
     /* Logo Wrap */
-    .logo-slam-wrap {
-      width: 170px;
-      margin-bottom: 16px;
-      filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.8));
+    .lotus-vector-wrap {
+      width: 160px;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.7));
     }
-    .logo-slam-wrap img {
+    .lotus-vector-wrap img {
       width: 100%;
       height: auto;
+      display: block;
     }
 
-    /* Rapid Cut Grid in Scene 3 */
-    .pillars-kinetic-grid {
+    /* Scene 2: Westminster Architectural Landmark Vector (NO Photos) */
+    .parliament-vector-container {
+      width: 220px;
+      height: 140px;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.5));
+    }
+
+    /* Scene 3: Clean Corporate Package Cards */
+    .packages-corporate-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
       width: 100%;
-      max-width: 980px;
+      max-width: 940px;
       margin-top: 14px;
     }
-    .pillar-box {
-      background: rgba(12, 28, 54, 0.9);
-      border: 1.5px solid rgba(212, 175, 55, 0.4);
-      border-radius: 10px;
-      padding: 16px 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    .pkg-box {
+      background: var(--navy-card);
+      border: 1.5px solid var(--navy-border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(10px);
       text-align: center;
-      transform: scale(0.9);
+      transform: translateY(30px);
       opacity: 0;
-      transition: transform 0.15s, opacity 0.15s;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease-out;
     }
-    .pillar-box.active {
-      transform: scale(1.05);
-      border-color: #ffd700;
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+    .pkg-box.active {
+      transform: translateY(0);
       opacity: 1;
     }
-    .pillar-box img {
-      height: 48px;
-      margin-bottom: 8px;
-      object-fit: contain;
+    .pkg-box.featured {
+      border-color: var(--gold-bright);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(10, 24, 52, 0.95) 100%);
+      box-shadow: 0 0 35px rgba(212, 175, 55, 0.45);
     }
-    .pillar-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.95rem;
+    .pkg-tag {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--gold-bright);
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .pkg-price-val {
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
       font-weight: 900;
       color: #fff;
       margin-bottom: 4px;
+      line-height: 1;
     }
-    .pillar-price {
-      font-family: 'Cinzel', serif;
-      font-size: 1.35rem;
-      font-weight: 900;
-      color: #d4af37;
+    .pkg-desc {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.4;
     }
 
-    /* Final CTA Box in Scene 4 */
-    .cta-box-kinetic {
-      background: rgba(8, 20, 42, 0.95);
-      border: 2px solid #ffd700;
-      border-radius: 14px;
-      padding: 18px 45px;
+    /* Scene 4: Corporate CTA Box */
+    .cta-glass-box {
+      background: rgba(10, 24, 52, 0.95);
+      border: 2px solid var(--gold-bright);
+      border-radius: 16px;
+      padding: 20px 48px;
       margin: 14px 0;
-      box-shadow: 0 0 50px rgba(212, 175, 55, 0.6), inset 0 0 25px rgba(212, 175, 55, 0.2);
+      box-shadow: 0 0 45px rgba(212, 175, 55, 0.5), inset 0 0 20px rgba(212, 175, 55, 0.15);
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      backdrop-filter: blur(12px);
     }
-    .cta-url-kinetic {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.1rem;
+    .cta-link-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.2rem;
       font-weight: 900;
       color: #fff;
       letter-spacing: 1px;
-      text-shadow: 0 0 25px #ffd700;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
     }
 
-    /* Controls Bar */
+    /* Player Controls Bar */
     .controls-bar {
       width: 100%;
       max-width: 1100px;
       margin-top: 16px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       background: #091529;
       border: 1px solid #1e3a5f;
-      padding: 12px 20px;
+      padding: 12px 22px;
       border-radius: 10px;
     }
     .btn-play {
       background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
-      color: #030816;
+      color: #02050e;
       border: none;
       padding: 10px 24px;
       border-radius: 6px;
       font-weight: 900;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 0.95rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
       transition: all 0.2s;
     }
     .btn-play:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+      transform: scale(1.03);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.7);
     }
     .time-slider {
       flex: 1;
@@ -329,136 +374,223 @@
       border-radius: 50%;
       background: #ffd700;
       cursor: pointer;
-      box-shadow: 0 0 12px #ffd700;
+      box-shadow: 0 0 10px #ffd700;
     }
     .time-display {
-      font-family: 'Montserrat', monospace;
-      font-size: 1rem;
+      font-family: 'Plus Jakarta Sans', monospace;
+      font-size: 0.95rem;
       color: #ffd700;
       font-weight: 800;
-      min-width: 90px;
+      min-width: 95px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Audio Element for High Energy Soundtrack -->
-  <audio id="trailerAudio" src="soundtrack_high_energy.wav" preload="auto"></audio>
+  <!-- Audio Element: High-Octane Corporate Soundtrack (128 BPM) -->
+  <audio id="trailerAudio" src="soundtrack_corporate_high_octane.wav" preload="auto"></audio>
 
-  <!-- 16:9 High-Energy Video Canvas Viewport -->
+  <!-- 16:9 High-Octane Corporate Video Canvas Viewport -->
   <div class="player-container" id="videoViewport">
 
-    <!-- Dynamic Motion Background (No 3JS) -->
-    <div class="motion-bg" id="motionBg"></div>
-    <div class="speed-lines"></div>
-
-    <!-- Authentic Big Ben Graphic (Reveals in Scene 2) -->
-    <img src="presentation_assets/big_ben_tower.png" id="bigBen" class="tower-bg" alt="Big Ben Tower">
-
-    <!-- Strobe Shockwave Layer -->
+    <!-- Corporate Luxury Grid Background (NO 3JS, NO Photos) -->
+    <div class="corporate-bg" id="corpBg"></div>
+    <div class="horizon-glow"></div>
     <div class="strobe-flash" id="flash"></div>
-    <div class="shockwave-ring" id="shockwave"></div>
 
-    <!-- SCENE CONTAINER -->
-    <div class="scene-container">
+    <!-- SCENE VIEWPORT -->
+    <div class="scene-viewport">
 
-      <!-- SCENE 1: (0.0s - 3.8s) RAPID TEASER & LOGO BURST -->
+      <!-- ========================================================
+           SCENE 1: (0.0s – 3.75s) THE PRESTIGE REVEAL & LOTUS
+           ======================================================== -->
       <div class="scene" id="scene1">
-        <div class="gold-kicker-bold" id="s1Kicker">INDIAN BUSINESS NETWORK</div>
         
-        <div class="logo-slam-wrap" id="logoWrap">
+        <!-- Authentic Transparent Vector Lotus -->
+        <div class="lotus-vector-wrap" id="s1Lotus">
           <img src="presentation_assets/ibn_lotus_flower.png" alt="IBN Lotus Logo">
         </div>
 
-        <h1 class="slam-title" id="s1Title" style="font-size: 3.4rem;">
-          <span class="kinetic-word" id="w1">GLOBAL</span> 
-          <span class="kinetic-word" id="w2">INDIAN</span><br>
-          <span class="kinetic-word gold-shimmer" id="w3">EXCELLENCE</span>
-        </h1>
-
-        <div class="kinetic-badge" id="s1Badge">
-          ⚡ LONDON • 5–9 NOVEMBER 2026
-        </div>
-      </div>
-
-      <!-- SCENE 2: (3.8s - 7.5s) MASSIVE DROP — HOUSE OF COMMONS -->
-      <div class="scene" id="scene2" style="align-items: flex-start; text-align: left; padding-left: 60px;">
-        <div class="kinetic-badge" id="s2Vip" style="margin-bottom: 14px; border-color: #ef4444; color: #fca5a5;">
-          🔒 BY INVITATION ONLY • STRICTLY 100 LEADERS
-        </div>
-
-        <h1 class="slam-title" id="s2Title" style="font-size: 4rem; max-width: 700px;">
-          HOUSE OF<br><span class="gold-shimmer">COMMONS</span>
-        </h1>
-
-        <div class="sub-punch" id="s2Sub" style="color: #ffd700; margin-bottom: 12px;">
-          BRITISH PARLIAMENT • PALACE OF WESTMINSTER
-        </div>
-
-        <div style="display: flex; gap: 14px; margin-top: 6px;">
-          <div class="kinetic-badge" style="background: rgba(12, 28, 54, 0.95); font-size: 0.95rem;">
-            🇬🇧 BILATERAL UK-INDIA SUMMIT
+        <!-- Masked Text Kicker -->
+        <div class="text-mask" style="margin-bottom: 8px;">
+          <div class="text-line gold-kicker" id="s1Kicker">
+            INDIAN BUSINESS NETWORK PRESENTS
           </div>
-          <div class="kinetic-badge" style="background: rgba(12, 28, 54, 0.95); font-size: 0.95rem;">
-            👑 GALA AWARDS CEREMONY
+        </div>
+
+        <!-- Masked Main Title Lines -->
+        <div class="text-mask">
+          <h1 class="text-line headline-large" id="s1TitleL1">
+            GLOBAL INDIAN
+          </h1>
+        </div>
+        <div class="text-mask" style="margin-bottom: 14px;">
+          <h1 class="text-line headline-large gold-shimmer-text" id="s1TitleL2">
+            BUSINESS EXCELLENCE
+          </h1>
+        </div>
+
+        <!-- Corporate Pill Badge -->
+        <div class="text-mask">
+          <div class="text-line corporate-badge" id="s1Badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" class="vector-svg">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#ffd700" stroke="#ffd700"/>
+            </svg>
+            LONDON • 5–9 NOVEMBER 2026
           </div>
         </div>
       </div>
 
-      <!-- SCENE 3: (7.5s - 11.4s) HIGH-SPEED EXPEDITION & PACKAGES -->
+      <!-- ========================================================
+           SCENE 2: (3.75s – 7.5s) HOUSE OF COMMONS (VECTOR ICON)
+           ======================================================== -->
+      <div class="scene" id="scene2">
+        
+        <!-- Clean Westminster Parliament Vector Icon (NO PHOTOGRAPHS) -->
+        <div class="parliament-vector-container" id="s2Icon">
+          <svg viewBox="0 0 160 100" width="100%" height="100%">
+            <!-- Classical Parliament Pediment & Columns -->
+            <polygon points="80,10 10,38 150,38" fill="rgba(212,175,55,0.15)" stroke="#ffd700" stroke-width="2.5" />
+            <!-- Entablature -->
+            <rect x="12" y="38" width="136" height="6" fill="#ffd700" />
+            <!-- 6 Majestic Columns -->
+            <rect x="22" y="44" width="8" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <rect x="44" y="44" width="8" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <rect x="66" y="44" width="8" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <rect x="86" y="44" width="8" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <rect x="108" y="44" width="8" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <rect x="130" y="44" width="8" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <!-- Base Plinth -->
+            <rect x="6" y="86" width="148" height="8" fill="#ffd700" />
+            <!-- Royal Portcullis Core Motif -->
+            <circle cx="80" cy="27" r="5" fill="#ffd700" />
+          </svg>
+        </div>
+
+        <div class="text-mask" style="margin-bottom: 8px;">
+          <div class="text-line corporate-badge" id="s2Vip" style="border-color: #ef4444; color: #fca5a5; font-size: 0.9rem;">
+            🔒 STRICTLY BY INVITATION • LIMITED TO 100 GUESTS
+          </div>
+        </div>
+
+        <div class="text-mask">
+          <h1 class="text-line headline-large" id="s2Title">
+            HOUSE OF COMMONS
+          </h1>
+        </div>
+
+        <div class="text-mask" style="margin-bottom: 14px;">
+          <div class="text-line" id="s2Sub" style="font-family: 'Cinzel', serif; font-size: 1.35rem; color: #ffd700; font-weight: 800; letter-spacing: 2px;">
+            BRITISH PARLIAMENT • PALACE OF WESTMINSTER
+          </div>
+        </div>
+
+        <div class="text-mask">
+          <div class="text-line" id="s2Badges" style="display: flex; gap: 14px;">
+            <span class="corporate-badge" style="font-size: 0.88rem; padding: 6px 18px;">
+              🇬🇧 UK-INDIA BILATERAL SUMMIT
+            </span>
+            <span class="corporate-badge" style="font-size: 0.88rem; padding: 6px 18px;">
+              📅 5–9 NOVEMBER 2026
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================
+           SCENE 3: (7.5s – 11.25s) 5-DAY LEADERSHIP PROGRAMME & PASSES
+           ======================================================== -->
       <div class="scene" id="scene3">
-        <div class="gold-kicker-bold" id="s3Kicker">5-DAY WORLD-CLASS IMMERSION</div>
-        <h2 class="slam-title" id="s3Title" style="font-size: 3rem;">
-          OXFORD <span style="color:#d4af37">•</span> CAMBRIDGE <span style="color:#d4af37">•</span> IMPERIAL
-        </h2>
-
-        <!-- Fast Kinetic 3-Card Grid -->
-        <div class="pillars-kinetic-grid" id="pillarsGrid" style="grid-template-columns: repeat(3, 1fr); max-width: 920px;">
-          <div class="pillar-box" id="p1">
-            <div style="font-size: 0.85rem; color: #ffd700; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">GALA PASS</div>
-            <div class="pillar-price" style="font-size: 2.4rem; color: #fff; font-weight: 900;">£750</div>
-            <div style="font-size: 0.85rem; color: #cbd5e1; margin-top: 4px;">Black Tie Dinner & Networking</div>
-          </div>
-          <div class="pillar-box" id="p2">
-            <div style="font-size: 0.85rem; color: #ffd700; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">OXFORD FORUM</div>
-            <div class="pillar-price" style="font-size: 2.4rem; color: #ffd700; font-weight: 900;">£1,000</div>
-            <div style="font-size: 0.85rem; color: #cbd5e1; margin-top: 4px;">Leadership Forum + Gala Dinner</div>
-          </div>
-          <div class="pillar-box" id="p3" style="border-color: #ffd700; background: linear-gradient(135deg, rgba(212,175,55,0.25) 0%, rgba(12,28,54,0.95) 100%); box-shadow: 0 0 30px rgba(212,175,55,0.4);">
-            <div style="font-size: 0.85rem; color: #ffd700; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">⭐ 5-DAY ALL-ACCESS VIP</div>
-            <div class="pillar-price" style="font-size: 2.4rem; color: #fff; font-weight: 900;">£1,500</div>
-            <div style="font-size: 0.85rem; color: #cbd5e1; margin-top: 4px;">Oxford + Cambridge + Imperial</div>
+        
+        <div class="text-mask">
+          <div class="text-line gold-kicker" id="s3Kicker">
+            5-DAY ACADEMIC & C-SUITE IMMERSION
           </div>
         </div>
-        <div style="margin-top: 14px; font-size: 0.9rem; color: #94a3b8; letter-spacing: 1px;">
-          *Day 1 House of Commons Awards: Strictly by Invitation Only
+
+        <div class="text-mask" style="margin-bottom: 8px;">
+          <h2 class="text-line headline-large" id="s3Title" style="font-size: 3rem;">
+            OXFORD <span style="color:#ffd700">•</span> CAMBRIDGE <span style="color:#ffd700">•</span> IMPERIAL
+          </h2>
+        </div>
+
+        <!-- 3 Luxury Corporate Pass Cards with Vector Icons -->
+        <div class="packages-corporate-grid" id="packagesGrid">
+          
+          <!-- Card 1 -->
+          <div class="pkg-box" id="pkg1">
+            <div class="pkg-icon-badge">
+              <svg width="24" height="24" viewBox="0 0 24 24" class="vector-svg"><path d="M8 21h8m-4-4v4M5 3h14l-2 9a5 5 0 01-10 0L5 3z"/></svg>
+            </div>
+            <div class="pkg-tag">GALA DINNER PASS</div>
+            <div class="pkg-price-val">£750</div>
+            <p class="pkg-desc">Black-Tie Gala Dinner & C-Suite Networking</p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="pkg-box" id="pkg2">
+            <div class="pkg-icon-badge">
+              <svg width="24" height="24" viewBox="0 0 24 24" class="vector-svg"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <div class="pkg-tag" style="color: #ffd700;">OXFORD FORUM</div>
+            <div class="pkg-price-val" style="color: #ffd700;">£1,000</div>
+            <p class="pkg-desc">Oxford Business Forum + Gala Dinner</p>
+          </div>
+
+          <!-- Card 3 (Featured) -->
+          <div class="pkg-box featured" id="pkg3">
+            <div class="pkg-icon-badge" style="border-color: #ffd700; background: rgba(255, 215, 0, 0.25);">
+              <svg width="24" height="24" viewBox="0 0 24 24" class="vector-svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#ffd700"/></svg>
+            </div>
+            <div class="pkg-tag" style="color: #ffd700;">★ 5-DAY ALL-ACCESS VIP</div>
+            <div class="pkg-price-val">£1,500</div>
+            <p class="pkg-desc">Oxford + Cambridge + Imperial College London</p>
+          </div>
+
+        </div>
+
+        <div style="margin-top: 14px; font-size: 0.85rem; color: #94a3b8; letter-spacing: 0.8px;">
+          *Day 1 House of Commons Awards Ceremony: Strictly by Invitation Only
         </div>
       </div>
 
-      <!-- SCENE 4: (11.4s - 15.0s) FINAL CLIMAX & URGENT CTA -->
+      <!-- ========================================================
+           SCENE 4: (11.25s – 15.0s) CLIMAX & ACTIVE PORTAL CALL TO ACTION
+           ======================================================== -->
       <div class="scene" id="scene4">
-        <div class="kinetic-badge" id="s4Pill" style="border-color: #ef4444; color: #ff6b6b; margin-bottom: 12px; font-size: 1rem;">
-          ⚠️ ROLLING ACCREDITATION CLOSING SOON
+        
+        <div class="text-mask" style="margin-bottom: 6px;">
+          <div class="text-line corporate-badge" id="s4Pill" style="border-color: #ef4444; color: #ff6b6b; font-size: 0.95rem;">
+            ⚠️ ROLLING ACCREDITATION CLOSING SOON
+          </div>
         </div>
 
-        <h1 class="slam-title" id="s4Title" style="font-size: 4.2rem; margin-bottom: 8px;">
-          CLAIM YOUR <span class="gold-shimmer">LEGACY</span>
-        </h1>
+        <div class="text-mask">
+          <h1 class="text-line headline-large gold-shimmer-text" id="s4Title" style="font-size: 4rem;">
+            RESERVE YOUR PRESENCE
+          </h1>
+        </div>
 
-        <div class="cta-box-kinetic" id="s4Box">
-          <div style="font-size: 0.95rem; color: #ffd700; font-weight: 800; letter-spacing: 2px; margin-bottom: 4px;">
-            OFFICIAL DELEGATE REGISTRATION
+        <div class="cta-glass-box" id="s4Box">
+          <div style="font-size: 0.9rem; color: #ffd700; font-weight: 800; letter-spacing: 2px; margin-bottom: 6px; text-transform: uppercase;">
+            OFFICIAL DELEGATE REGISTRATION PORTAL
           </div>
-          <a href="https://tally.so/r/NpzrWj" target="_blank" class="cta-url-kinetic">
-            👉 TALLY.SO/R/NPZRWJ
+          <a href="https://tally.so/r/NpzrWj" target="_blank" class="cta-link-text">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+            TALLY.SO/R/NPZRWJ
           </a>
         </div>
 
-        <div style="display: flex; gap: 24px; font-weight: 800; font-size: 1rem; color: #cbd5e1; margin-top: 6px;" id="s4Contact">
-          <div>Subha Austalekshmi (+44 7587 260254)</div>
-          <div>•</div>
-          <div>WWW.IBN.ORG.IN</div>
+        <div class="text-mask">
+          <div class="text-line" id="s4Contact" style="font-weight: 800; font-size: 1rem; color: #cbd5e1; margin-top: 6px;">
+            Coordinator: <strong style="color:#fff;">Subha Austalekshmi (+44 7587 260254)</strong> &bull; WWW.IBN.ORG.IN
+          </div>
         </div>
+
       </div>
 
     </div>
@@ -469,8 +601,8 @@
     <button class="btn-play" id="btnPlay" onclick="togglePlay()">
       <span id="playIcon">▶</span> <span id="playText">PLAY ADVERT</span>
     </button>
-    <a href="cinematic_advert_vertical_9_16.html" style="color: #ffd700; text-decoration: none; font-size: 0.85rem; font-weight: 800; border: 1.5px solid #d4af37; padding: 8px 16px; border-radius: 6px; background: rgba(212, 175, 55, 0.15); white-space: nowrap;">
-      📱 9:16 Reel
+    <a href="cinematic_advert_vertical_9_16.html" style="color: #ffd700; text-decoration: none; font-size: 0.85rem; font-weight: 800; border: 1.5px solid var(--gold-primary); padding: 8px 16px; border-radius: 6px; background: rgba(212, 175, 55, 0.15); white-space: nowrap;">
+      📱 9:16 Mobile Reel
     </a>
     <a href="index.html" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; font-weight: 700; padding: 8px 12px; white-space: nowrap;">
       🌐 Event Site
@@ -480,11 +612,11 @@
   </div>
 
   <script>
-    // ==========================================
-    // DETERMINISTIC KINETIC TYPOGRAPHY ENGINE
-    // 450 Frames @ 30 FPS = 15 Seconds
-    // BPM = 126.0 (Sync to High Energy Soundtrack)
-    // ==========================================
+    // ========================================================
+    // DETERMINISTIC CORPORATE MOTION ENGINE
+    // 450 Frames @ 30 FPS = Exactly 15.0 Seconds
+    // Tempo = 128.0 BPM (0.46875s / beat = ~14.06 frames / beat)
+    // ========================================================
     const FPS = 30;
     const TOTAL_SECONDS = 15;
     const TOTAL_FRAMES = FPS * TOTAL_SECONDS; // 450
@@ -493,14 +625,41 @@
     let animTimer = null;
 
     const audio = document.getElementById('trailerAudio');
+    const flash = document.getElementById('flash');
+    const corpBg = document.getElementById('corpBg');
 
-    function spring(frame, fromFrame, mass = 0.5, damping = 12) {
-      if (frame < fromFrame) return 0;
-      const t = (frame - fromFrame) / 30;
-      const omega = Math.sqrt(100 / mass);
-      const val = 1 - Math.exp(-damping * t) * Math.cos(omega * t);
-      return Math.min(Math.max(val, 0), 1.3);
-    }
+    // Scene Containers
+    const s1 = document.getElementById('scene1');
+    const s2 = document.getElementById('scene2');
+    const s3 = document.getElementById('scene3');
+    const s4 = document.getElementById('scene4');
+
+    // Scene 1 Elements
+    const s1Lotus = document.getElementById('s1Lotus');
+    const s1Kicker = document.getElementById('s1Kicker');
+    const s1TitleL1 = document.getElementById('s1TitleL1');
+    const s1TitleL2 = document.getElementById('s1TitleL2');
+    const s1Badge = document.getElementById('s1Badge');
+
+    // Scene 2 Elements
+    const s2Icon = document.getElementById('s2Icon');
+    const s2Vip = document.getElementById('s2Vip');
+    const s2Title = document.getElementById('s2Title');
+    const s2Sub = document.getElementById('s2Sub');
+    const s2Badges = document.getElementById('s2Badges');
+
+    // Scene 3 Elements
+    const s3Kicker = document.getElementById('s3Kicker');
+    const s3Title = document.getElementById('s3Title');
+    const pkg1 = document.getElementById('pkg1');
+    const pkg2 = document.getElementById('pkg2');
+    const pkg3 = document.getElementById('pkg3');
+
+    // Scene 4 Elements
+    const s4Pill = document.getElementById('s4Pill');
+    const s4Title = document.getElementById('s4Title');
+    const s4Box = document.getElementById('s4Box');
+    const s4Contact = document.getElementById('s4Contact');
 
     function interpolate(frame, [inStart, inEnd], [outStart, outEnd]) {
       if (frame <= inStart) return outStart;
@@ -509,172 +668,136 @@
       return outStart + r * (outEnd - outStart);
     }
 
-    // DOM References
-    const flash = document.getElementById('flash');
-    const shockwave = document.getElementById('shockwave');
-    const bigBen = document.getElementById('bigBen');
-    const motionBg = document.getElementById('motionBg');
+    // Cubic-Bezier Ease Out (0.16, 1, 0.3, 1) approximation
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - Math.min(Math.max(t, 0), 1), 3);
+    }
 
-    const s1 = document.getElementById('scene1');
-    const s2 = document.getElementById('scene2');
-    const s3 = document.getElementById('scene3');
-    const s4 = document.getElementById('scene4');
-
-    const logoWrap = document.getElementById('logoWrap');
-    const s1Title = document.getElementById('s1Title');
-    const w1 = document.getElementById('w1');
-    const w2 = document.getElementById('w2');
-    const w3 = document.getElementById('w3');
-    const s1Badge = document.getElementById('s1Badge');
-
-    const s2Title = document.getElementById('s2Title');
-    const s2Vip = document.getElementById('s2Vip');
-    const s2Sub = document.getElementById('s2Sub');
-
-    const p1 = document.getElementById('p1');
-    const p2 = document.getElementById('p2');
-    const p3 = document.getElementById('p3');
-    const p4 = document.getElementById('p4');
-
-    const s4Title = document.getElementById('s4Title');
-    const s4Box = document.getElementById('s4Box');
-    const s4Pill = document.getElementById('s4Pill');
-    const s4Contact = document.getElementById('s4Contact');
-
-    function triggerFlash(intensity = 0.8) {
-      flash.style.opacity = intensity;
-      setTimeout(() => { flash.style.opacity = 0; }, 70);
+    function animateMaskedLine(el, frame, triggerFrame, duration = 12) {
+      if (frame < triggerFrame) {
+        el.style.transform = 'translateY(110%)';
+        el.style.opacity = '0';
+      } else {
+        const progress = (frame - triggerFrame) / duration;
+        const eased = easeOutCubic(progress);
+        const y = (1 - eased) * 110;
+        el.style.transform = `translateY(${y}%)`;
+        el.style.opacity = Math.min(progress * 2, 1);
+      }
     }
 
     function renderFrame(frame) {
-      // Background Dynamic Pulse
-      const bgZoom = 1.0 + Math.sin(frame * 0.1) * 0.04;
-      motionBg.style.transform = `scale(${bgZoom})`;
+      // Background subtle driving corporate expansion
+      const bgZoom = 1.0 + (frame / TOTAL_FRAMES) * 0.08;
+      corpBg.style.transform = `scale(${bgZoom})`;
 
-      // ----------------------------------------------------
-      // SCENE 1: Frames 0 - 114 (0.0s - 3.8s) RAPID TEASER & LOGO
-      // ----------------------------------------------------
-      if (frame < 114) {
-        s1.style.opacity = interpolate(frame, [0, 8], [0, 1]) * interpolate(frame, [100, 114], [1, 0]);
+      // --------------------------------------------------------
+      // SCENE 1: (Frames 0 – 112 / 0.0s – 3.75s) PRESTIGE REVEAL
+      // --------------------------------------------------------
+      if (frame < 112) {
+        s1.style.opacity = interpolate(frame, [0, 8], [0, 1]) * interpolate(frame, [100, 112], [1, 0]);
         s2.style.opacity = 0;
         s3.style.opacity = 0;
         s4.style.opacity = 0;
-        bigBen.style.opacity = 0;
 
-        // Shockwave on Beat 1 (Frame 2)
-        if (frame >= 2 && frame <= 25) {
-          const swScale = (frame - 2) * 0.25;
-          const swOp = 1.0 - (frame - 2) / 23;
-          shockwave.style.transform = `translate(-50%, -50%) scale(${swScale})`;
-          shockwave.style.opacity = Math.max(swOp, 0);
+        // Lotus flower scales in smoothly
+        const lotusScale = frame < 15 ? interpolate(frame, [0, 15], [0.6, 1.0]) : 1.0;
+        s1Lotus.style.transform = `scale(${lotusScale})`;
+        s1Lotus.style.opacity = interpolate(frame, [0, 10], [0, 1]);
+
+        // Staggered masked line ascensions (in sync with 16th ostinato)
+        animateMaskedLine(s1Kicker, frame, 6, 10);
+        animateMaskedLine(s1TitleL1, frame, 16, 12);
+        animateMaskedLine(s1TitleL2, frame, 28, 12);
+        animateMaskedLine(s1Badge, frame, 44, 12);
+      }
+
+      // --------------------------------------------------------
+      // SCENE 2: (Frames 112 – 225 / 3.75s – 7.5s) HOUSE OF COMMONS
+      // --------------------------------------------------------
+      else if (frame >= 112 && frame < 225) {
+        s1.style.opacity = 0;
+        s2.style.opacity = interpolate(frame, [112, 118], [0, 1]) * interpolate(frame, [214, 225], [1, 0]);
+        s3.style.opacity = 0;
+        s4.style.opacity = 0;
+
+        // Strobe flash at exact drop (Frame 112)
+        if (frame === 112 || frame === 113) {
+          flash.style.opacity = '0.6';
         } else {
-          shockwave.style.opacity = 0;
+          flash.style.opacity = '0';
         }
 
-        // Kinetic Logo Pop-in with Spring Slam
-        const logoScale = frame < 4 ? interpolate(frame, [0, 4], [2.2, 1.0]) : 1.0 + (frame * 0.001);
-        logoWrap.style.transform = `scale(${logoScale})`;
+        // Vector Architectural Icon enters smoothly
+        const iconScale = interpolate(frame, [112, 126], [0.8, 1.0]);
+        s2Icon.style.transform = `scale(${iconScale})`;
+        s2Icon.style.opacity = interpolate(frame, [112, 122], [0, 1]);
 
-        // Kinetic Word-by-Word Slam
-        const w1Scale = frame >= 8 ? (frame < 14 ? interpolate(frame, [8, 14], [2.0, 1.0]) : 1.0) : 0;
-        const w2Scale = frame >= 22 ? (frame < 28 ? interpolate(frame, [22, 28], [2.0, 1.0]) : 1.0) : 0;
-        const w3Scale = frame >= 38 ? (frame < 44 ? interpolate(frame, [38, 44], [2.4, 1.0]) : 1.0) : 0;
-
-        w1.style.transform = `scale(${w1Scale})`;
-        w1.style.opacity = frame >= 8 ? 1 : 0;
-
-        w2.style.transform = `scale(${w2Scale})`;
-        w2.style.opacity = frame >= 22 ? 1 : 0;
-
-        w3.style.transform = `scale(${w3Scale})`;
-        w3.style.opacity = frame >= 38 ? 1 : 0;
-
-        // Badge Slam at frame 50
-        const bScale = frame >= 50 ? (frame < 56 ? interpolate(frame, [50, 56], [1.8, 1.0]) : 1.0) : 0;
-        s1Badge.style.transform = `scale(${bScale})`;
-        s1Badge.style.opacity = frame >= 50 ? 1 : 0;
+        // Masked Text Lines cascade
+        animateMaskedLine(s2Vip, frame, 116, 10);
+        animateMaskedLine(s2Title, frame, 124, 12);
+        animateMaskedLine(s2Sub, frame, 136, 12);
+        animateMaskedLine(s2Badges, frame, 148, 12);
       }
 
-      // ----------------------------------------------------
-      // SCENE 2: Frames 114 - 225 (3.8s - 7.5s) MASSIVE DROP (COMMONS)
-      // ----------------------------------------------------
-      else if (frame >= 114 && frame < 225) {
-        s1.style.opacity = 0;
-        s2.style.opacity = interpolate(frame, [114, 120], [0, 1]) * interpolate(frame, [212, 225], [1, 0]);
-        s3.style.opacity = 0;
-        s4.style.opacity = 0;
-
-        // Big Ben Tower zooms in on the right
-        const bbScale = 1.0 + ((frame - 114) / 111) * 0.12;
-        bigBen.style.opacity = interpolate(frame, [114, 122], [0, 0.95]) * interpolate(frame, [212, 225], [1, 0]);
-        bigBen.style.transform = `translateY(-50%) scale(${bbScale})`;
-
-        // Title Slam with hard bounce
-        const titleScale = frame < 122 ? interpolate(frame, [114, 122], [2.2, 1.0]) : 1.0;
-        s2Title.style.transform = `scale(${titleScale})`;
-
-        const vipY = interpolate(frame, [114, 124], [-40, 0]);
-        s2Vip.style.transform = `translateY(${vipY}px)`;
-        s2Vip.style.opacity = interpolate(frame, [114, 124], [0, 1]);
-
-        const subScale = frame >= 135 ? (frame < 142 ? interpolate(frame, [135, 142], [1.5, 1.0]) : 1.0) : 0;
-        s2Sub.style.transform = `scale(${subScale})`;
-        s2Sub.style.opacity = frame >= 135 ? 1 : 0;
-      }
-
-      // ----------------------------------------------------
-      // SCENE 3: Frames 225 - 342 (7.5s - 11.4s) HIGH-SPEED EXPEDITION
-      // ----------------------------------------------------
-      else if (frame >= 225 && frame < 342) {
+      // --------------------------------------------------------
+      // SCENE 3: (Frames 225 – 337 / 7.5s – 11.25s) 5-DAY PACKAGES
+      // --------------------------------------------------------
+      else if (frame >= 225 && frame < 337) {
         s1.style.opacity = 0;
         s2.style.opacity = 0;
-        s3.style.opacity = interpolate(frame, [225, 232], [0, 1]) * interpolate(frame, [330, 342], [1, 0]);
+        s3.style.opacity = interpolate(frame, [225, 232], [0, 1]) * interpolate(frame, [326, 337], [1, 0]);
         s4.style.opacity = 0;
-        bigBen.style.opacity = 0;
 
-        const s3TitleScale = frame < 233 ? interpolate(frame, [225, 233], [1.8, 1.0]) : 1.0;
-        document.getElementById('s3Title').style.transform = `scale(${s3TitleScale})`;
+        animateMaskedLine(s3Kicker, frame, 226, 10);
+        animateMaskedLine(s3Title, frame, 234, 12);
 
-        // Staggered Box Slams in Sync with Beats (Frame 230, 245, 260)
-        p1.classList.toggle('active', frame >= 230);
-        p1.style.opacity = frame >= 230 ? 1 : 0;
-
-        p2.classList.toggle('active', frame >= 245);
-        p2.style.opacity = frame >= 245 ? 1 : 0;
-
-        p3.classList.toggle('active', frame >= 260);
-        p3.style.opacity = frame >= 260 ? 1 : 0;
+        // Staggered Card Entrances in sync with beats (Frames 242, 256, 270)
+        pkg1.classList.toggle('active', frame >= 242);
+        pkg2.classList.toggle('active', frame >= 256);
+        pkg3.classList.toggle('active', frame >= 270);
       }
 
-      // ----------------------------------------------------
-      // SCENE 4: Frames 342 - 450 (11.4s - 15.0s) CLIMAX & FINAL CTA
-      // ----------------------------------------------------
+      // --------------------------------------------------------
+      // SCENE 4: (Frames 337 – 450 / 11.25s – 15.0s) CLIMAX & CTA
+      // --------------------------------------------------------
       else {
         s1.style.opacity = 0;
         s2.style.opacity = 0;
         s3.style.opacity = 0;
-        s4.style.opacity = interpolate(frame, [342, 348], [0, 1]);
-        bigBen.style.opacity = 0;
+        s4.style.opacity = interpolate(frame, [337, 344], [0, 1]);
 
-        // Massive Climax Slam
-        const cScale = frame < 352 ? interpolate(frame, [342, 352], [2.5, 1.0]) : 1.0 + Math.sin(frame * 0.15) * 0.02;
-        s4Title.style.transform = `scale(${cScale})`;
+        // Final flash impact on climax
+        if (frame === 337 || frame === 338) {
+          flash.style.opacity = '0.7';
+        } else {
+          flash.style.opacity = '0';
+        }
 
-        const boxScale = frame >= 356 ? (frame < 364 ? interpolate(frame, [356, 364], [1.6, 1.0]) : 1.0) : 0;
-        s4Box.style.transform = `scale(${boxScale})`;
-        s4Box.style.opacity = frame >= 356 ? 1 : 0;
+        animateMaskedLine(s4Pill, frame, 340, 10);
+        animateMaskedLine(s4Title, frame, 346, 12);
 
-        s4Pill.style.opacity = frame >= 345 ? 1 : 0;
-        s4Contact.style.opacity = frame >= 370 ? 1 : 0;
+        // Glassmorphic CTA Portal Box ascends
+        const boxProgress = (frame - 356) / 14;
+        const boxEased = easeOutCubic(boxProgress);
+        if (frame < 356) {
+          s4Box.style.transform = 'translateY(40px)';
+          s4Box.style.opacity = '0';
+        } else {
+          s4Box.style.transform = `translateY(${(1 - boxEased) * 40}px)`;
+          s4Box.style.opacity = Math.min(boxProgress * 1.5, 1);
+        }
+
+        animateMaskedLine(s4Contact, frame, 368, 12);
       }
 
-      // UI Counter Update
+      // UI Counter & Slider
       document.getElementById('timeSlider').value = frame;
       const currentSec = (frame / FPS).toFixed(1);
       document.getElementById('timeDisplay').textContent = `00:${currentSec.padStart(4, '0')} / 00:15`;
     }
 
-    // Playback Logic
+    // Playback Controller
     function step() {
       if (!isPlaying) return;
       currentFrame++;
@@ -711,7 +834,6 @@
       renderFrame(currentFrame);
     }
 
-    // Render initial Frame 0
     renderFrame(0);
   </script>
 </body>

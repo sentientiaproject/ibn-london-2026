@@ -3,18 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IBN London 2026 — 9:16 High-Energy Kinetic Reel (15s)</title>
+  <title>IBN London 2026 — High-Octane Corporate Reel (15s)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Montserrat:wght@800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --gold-primary: #d4af37;
+      --gold-bright: #ffd700;
+      --navy-deep: #030816;
+      --navy-card: rgba(10, 24, 52, 0.94);
+      --navy-border: rgba(212, 175, 55, 0.45);
+    }
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
     body {
-      background: #020612;
+      background: #02050e;
       color: #fff;
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
@@ -31,10 +38,10 @@
       width: 100%;
       max-width: 420px;
       aspect-ratio: 9 / 16;
-      background: #030816;
+      background: var(--navy-deep);
       border-radius: 18px;
-      border: 2px solid rgba(212, 175, 55, 0.7);
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 60px rgba(212, 175, 55, 0.3);
+      border: 2px solid var(--navy-border);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(212, 175, 55, 0.25);
       position: relative;
       overflow: hidden;
       display: flex;
@@ -43,50 +50,30 @@
       user-select: none;
     }
 
-    /* Motion Background */
-    .motion-bg {
+    /* Corporate Vector Motion Background (NO 3JS, NO Photos) */
+    .corporate-bg {
       position: absolute;
       inset: 0;
       background: 
-        radial-gradient(circle at 50% 40%, rgba(16, 42, 84, 0.9) 0%, rgba(3, 8, 22, 0.98) 80%),
-        linear-gradient(rgba(212, 175, 55, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(212, 175, 55, 0.06) 1px, transparent 1px);
-      background-size: 100% 100%, 40px 40px, 40px 40px;
+        radial-gradient(circle at 50% 40%, rgba(18, 46, 94, 0.9) 0%, rgba(2, 6, 17, 0.98) 80%),
+        linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+      background-size: 100% 100%, 36px 36px, 36px 36px;
       z-index: 1;
       pointer-events: none;
     }
 
-    /* Big Ben Tower Graphic Layer */
-    .tower-bg {
+    .strobe-flash {
       position: absolute;
-      right: -10%;
-      bottom: 0;
-      height: 60%;
-      max-width: 75%;
-      object-fit: contain;
+      inset: 0;
+      background: #fff;
       opacity: 0;
-      filter: contrast(1.25) drop-shadow(0 0 35px rgba(212, 175, 55, 0.5));
-      z-index: 2;
+      z-index: 20;
       pointer-events: none;
-      transition: opacity 0.15s, transform 0.15s;
+      mix-blend-mode: overlay;
     }
 
-    .shockwave-ring {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      border: 3px solid #ffd700;
-      border-radius: 50%;
-      top: 35%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      z-index: 3;
-      pointer-events: none;
-      box-shadow: 0 0 40px #ffd700;
-    }
-
-    .scene-container {
+    .scene-viewport {
       position: absolute;
       inset: 0;
       z-index: 5;
@@ -94,8 +81,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 30px 20px;
+      padding: 30px 24px;
       pointer-events: none;
     }
 
@@ -106,138 +92,181 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 30px 20px;
+      padding: 24px 20px;
       opacity: 0;
       pointer-events: none;
     }
 
-    .slam-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.5rem;
+    /* Proper Masked Typography */
+    .text-mask {
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.15;
+      padding: 2px 0;
+    }
+    .text-line {
+      display: inline-block;
+      transform: translateY(110%);
+      opacity: 0;
+      will-change: transform, opacity;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease-out;
+    }
+
+    .gold-kicker {
+      font-family: 'Cinzel', serif;
+      font-size: 0.82rem;
+      letter-spacing: 4px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .headline-large {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.2rem;
       font-weight: 900;
-      line-height: 1.08;
+      line-height: 1.1;
       text-transform: uppercase;
       letter-spacing: -0.5px;
       color: #fff;
-      text-shadow: 0 0 35px rgba(255, 255, 255, 0.5);
-      margin-bottom: 10px;
+      text-align: center;
+      margin-bottom: 8px;
     }
-
-    .gold-shimmer {
-      background: linear-gradient(90deg, #fff 0%, #ffd700 30%, #ffae00 70%, #fff 100%);
+    .gold-shimmer-text {
+      background: linear-gradient(90deg, #ffffff 0%, #ffd700 30%, #d4af37 60%, #ffffff 100%);
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px rgba(212, 175, 55, 0.7);
     }
 
-    .gold-kicker-bold {
-      font-family: 'Cinzel', serif;
-      font-size: 0.9rem;
-      letter-spacing: 4px;
-      color: #d4af37;
-      text-transform: uppercase;
-      font-weight: 800;
-      margin-bottom: 12px;
-      text-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
-    }
-
-    .kinetic-badge {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(12, 28, 54, 0.95) 100%);
-      border: 1.5px solid #d4af37;
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
-      padding: 8px 18px;
+    .corporate-badge {
+      background: rgba(12, 28, 54, 0.9);
+      border: 1.5px solid var(--gold-primary);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+      padding: 6px 16px;
       border-radius: 50px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #fff;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
     }
 
-    .logo-slam-wrap {
-      width: 140px;
-      margin-bottom: 14px;
-      filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.8));
+    .lotus-vector-wrap {
+      width: 130px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.6));
     }
-    .logo-slam-wrap img {
+    .lotus-vector-wrap img {
       width: 100%;
       height: auto;
     }
 
-    /* Stacked Pillars in Scene 3 for 9:16 */
-    .pillars-stack {
+    .parliament-vector-wrap {
+      width: 160px;
+      height: 100px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.45));
+    }
+
+    /* Stacked Package Rows in Scene 3 for 9:16 */
+    .packages-vertical-stack {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       width: 100%;
       margin-top: 10px;
     }
-    .pillar-row {
-      background: rgba(12, 28, 54, 0.9);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      border-radius: 8px;
+    .pkg-row {
+      background: var(--navy-card);
+      border: 1.5px solid var(--navy-border);
+      border-radius: 10px;
       padding: 10px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       opacity: 0;
-      transform: scale(0.9);
-      transition: all 0.15s;
+      transform: translateY(20px);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease-out;
     }
-    .pillar-row.active {
+    .pkg-row.active {
       opacity: 1;
-      transform: scale(1.02);
-      border-color: #ffd700;
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      transform: translateY(0);
     }
-    .pillar-row-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 900;
+    .pkg-row.featured {
+      border-color: var(--gold-bright);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.22) 0%, rgba(10, 24, 52, 0.98) 100%);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+    }
+    .pkg-row-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pkg-row-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold-bright);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pkg-row-title {
+      font-size: 0.82rem;
+      font-weight: 800;
       color: #fff;
     }
-    .pillar-row-price {
+    .pkg-row-sub {
+      font-size: 0.68rem;
+      color: #94a3b8;
+    }
+    .pkg-row-price {
       font-family: 'Cinzel', serif;
-      font-size: 1.15rem;
+      font-size: 1.35rem;
       font-weight: 900;
-      color: #d4af37;
+      color: var(--gold-bright);
     }
 
-    /* Final CTA */
-    .cta-box-kinetic {
-      background: rgba(8, 20, 42, 0.95);
-      border: 2px solid #ffd700;
-      border-radius: 12px;
+    /* Scene 4 CTA */
+    .cta-glass-box {
+      background: rgba(10, 24, 52, 0.95);
+      border: 2px solid var(--gold-bright);
+      border-radius: 14px;
       padding: 14px 20px;
-      margin: 12px 0;
-      box-shadow: 0 0 35px rgba(212, 175, 55, 0.6);
+      margin: 10px 0;
+      box-shadow: 0 0 35px rgba(212, 175, 55, 0.5);
       width: 100%;
+      text-align: center;
     }
-    .cta-url-kinetic {
-      font-family: 'Montserrat', sans-serif;
+    .cta-link-text {
       font-size: 1.45rem;
       font-weight: 900;
       color: #fff;
-      letter-spacing: 0.5px;
-      text-shadow: 0 0 20px #ffd700;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
     }
 
-    /* Controls */
     .controls-bar {
       width: 100%;
       max-width: 420px;
       margin-top: 14px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       background: #091529;
       border: 1px solid #1e3a5f;
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-radius: 10px;
     }
     .controls-top {
@@ -247,12 +276,11 @@
     }
     .btn-play {
       background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
-      color: #030816;
+      color: #02050e;
       border: none;
       padding: 8px 18px;
       border-radius: 6px;
       font-weight: 900;
-      font-family: 'Montserrat', sans-serif;
       font-size: 0.85rem;
       cursor: pointer;
     }
@@ -260,91 +288,155 @@
 </head>
 <body>
 
-  <audio id="trailerAudio" src="soundtrack_high_energy.wav" preload="auto"></audio>
+  <audio id="trailerAudio" src="soundtrack_corporate_high_octane.wav" preload="auto"></audio>
 
   <div class="player-container" id="videoViewport">
-    <div class="motion-bg" id="motionBg"></div>
-    <img src="presentation_assets/big_ben_tower.png" id="bigBen" class="tower-bg" alt="Big Ben Tower">
-    <div class="shockwave-ring" id="shockwave"></div>
+    <div class="corporate-bg" id="corpBg"></div>
+    <div class="strobe-flash" id="flash"></div>
 
-    <div class="scene-container">
+    <div class="scene-viewport">
 
-      <!-- SCENE 1: (0.0s - 3.8s) RAPID TEASER -->
+      <!-- SCENE 1: (0.0s – 3.75s) -->
       <div class="scene" id="scene1">
-        <div class="gold-kicker-bold">INDIAN BUSINESS NETWORK</div>
-        <div class="logo-slam-wrap" id="logoWrap">
+        <div class="lotus-vector-wrap" id="s1Lotus">
           <img src="presentation_assets/ibn_lotus_flower.png" alt="IBN Lotus Logo">
         </div>
-        <h1 class="slam-title" id="s1Title" style="font-size: 2.2rem;">
-          <span id="w1" style="display:inline-block;">GLOBAL</span> 
-          <span id="w2" style="display:inline-block;">INDIAN</span><br>
-          <span id="w3" class="gold-shimmer" style="display:inline-block;">EXCELLENCE</span>
-        </h1>
-        <div class="kinetic-badge" id="s1Badge">
-          ⚡ LONDON • NOV 2026
+        <div class="text-mask" style="margin-bottom: 6px;">
+          <div class="text-line gold-kicker" id="s1Kicker">
+            INDIAN BUSINESS NETWORK
+          </div>
+        </div>
+        <div class="text-mask">
+          <h1 class="text-line headline-large" id="s1TitleL1">
+            GLOBAL INDIAN
+          </h1>
+        </div>
+        <div class="text-mask" style="margin-bottom: 10px;">
+          <h1 class="text-line headline-large gold-shimmer-text" id="s1TitleL2">
+            EXCELLENCE
+          </h1>
+        </div>
+        <div class="text-mask">
+          <div class="text-line corporate-badge" id="s1Badge">
+            ⭐ LONDON • 5–9 NOVEMBER 2026
+          </div>
         </div>
       </div>
 
-      <!-- SCENE 2: (3.8s - 7.5s) MASSIVE DROP -->
-      <div class="scene" id="scene2" style="text-align: left; align-items: flex-start; padding-left: 24px;">
-        <div class="kinetic-badge" id="s2Vip" style="border-color: #ef4444; color: #fca5a5; margin-bottom: 10px; font-size: 0.75rem;">
-          🔒 BY INVITATION ONLY • 100 TITANS
+      <!-- SCENE 2: (3.75s – 7.5s) -->
+      <div class="scene" id="scene2">
+        <div class="parliament-vector-wrap" id="s2Icon">
+          <svg viewBox="0 0 160 100" width="100%" height="100%">
+            <polygon points="80,12 15,38 145,38" fill="rgba(212,175,55,0.15)" stroke="#ffd700" stroke-width="2.5" />
+            <rect x="18" y="38" width="124" height="6" fill="#ffd700" />
+            <rect x="26" y="44" width="7" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <rect x="48" y="44" width="7" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <rect x="70" y="44" width="7" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <rect x="84" y="44" width="7" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <rect x="106" y="44" width="7" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <rect x="128" y="44" width="7" height="42" fill="rgba(212,175,55,0.3)" stroke="#ffd700" stroke-width="1.8" />
+            <rect x="10" y="86" width="140" height="8" fill="#ffd700" />
+            <circle cx="80" cy="26" r="4.5" fill="#ffd700" />
+          </svg>
         </div>
-        <h1 class="slam-title" id="s2Title" style="font-size: 2.7rem; line-height: 1.05;">
-          HOUSE OF<br><span class="gold-shimmer">COMMONS</span>
-        </h1>
-        <div style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 800; color: #ffd700; margin-bottom: 8px;">
-          BRITISH PARLIAMENT
+        <div class="text-mask" style="margin-bottom: 6px;">
+          <div class="text-line corporate-badge" id="s2Vip" style="border-color: #ef4444; color: #fca5a5; font-size: 0.75rem;">
+            🔒 BY INVITATION ONLY • 100 GUESTS
+          </div>
         </div>
-        <div class="kinetic-badge" style="font-size: 0.8rem; margin-top: 4px;">
-          📅 5–9 NOVEMBER 2026
+        <div class="text-mask">
+          <h1 class="text-line headline-large" id="s2Title" style="font-size: 2.1rem;">
+            HOUSE OF COMMONS
+          </h1>
+        </div>
+        <div class="text-mask" style="margin-bottom: 8px;">
+          <div class="text-line" id="s2Sub" style="font-family: 'Cinzel', serif; font-size: 1rem; color: #ffd700; font-weight: 800;">
+            BRITISH PARLIAMENT
+          </div>
+        </div>
+        <div class="text-mask">
+          <div class="text-line corporate-badge" id="s2Badges" style="font-size: 0.78rem;">
+            🇬🇧 5–9 NOVEMBER 2026 • LONDON
+          </div>
         </div>
       </div>
 
-      <!-- SCENE 3: (7.5s - 11.4s) EXPEDITION -->
+      <!-- SCENE 3: (7.5s – 11.25s) -->
       <div class="scene" id="scene3">
-        <div class="gold-kicker-bold" style="font-size: 0.78rem;">5-DAY ELITE PROGRAMME</div>
-        <h2 class="slam-title" style="font-size: 1.85rem; margin-bottom: 6px;">
-          OXFORD <span style="color:#d4af37">•</span> CAMBRIDGE
-        </h2>
-        <div class="pillars-stack">
-          <div class="pillar-row" id="p1">
-            <span class="pillar-row-title">🏛️ WESTMINSTER AWARDS</span>
-            <span class="pillar-row-price" style="font-size: 0.85rem; color: #fca5a5;">INVITATION</span>
+        <div class="text-mask" style="margin-bottom: 4px;">
+          <div class="text-line gold-kicker" id="s3Kicker" style="font-size: 0.78rem;">
+            5-DAY LEADERSHIP PROGRAMME
           </div>
-          <div class="pillar-row" id="p2">
-            <span class="pillar-row-title">🍷 GALA DINNER PASS</span>
-            <span class="pillar-row-price">£750</span>
+        </div>
+        <div class="text-mask" style="margin-bottom: 6px;">
+          <h2 class="text-line headline-large" id="s3Title" style="font-size: 1.8rem;">
+            OXFORD <span style="color:#ffd700">•</span> CAMBRIDGE
+          </h2>
+        </div>
+        <div class="packages-vertical-stack">
+          <div class="pkg-row" id="pkg1">
+            <div class="pkg-row-left">
+              <div class="pkg-row-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2"><path d="M8 21h8m-4-4v4M5 3h14l-2 9a5 5 0 01-10 0L5 3z"/></svg>
+              </div>
+              <div>
+                <div class="pkg-row-title">GALA DINNER PASS</div>
+                <div class="pkg-row-sub">Dinner & Networking</div>
+              </div>
+            </div>
+            <div class="pkg-row-price">£750</div>
           </div>
-          <div class="pillar-row" id="p3">
-            <span class="pillar-row-title">🎓 OXFORD FORUM</span>
-            <span class="pillar-row-price">£1,000</span>
+          <div class="pkg-row" id="pkg2">
+            <div class="pkg-row-left">
+              <div class="pkg-row-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </div>
+              <div>
+                <div class="pkg-row-title">OXFORD FORUM</div>
+                <div class="pkg-row-sub">Leadership + Gala Dinner</div>
+              </div>
+            </div>
+            <div class="pkg-row-price" style="color: #ffd700;">£1,000</div>
           </div>
-          <div class="pillar-row" id="p4">
-            <span class="pillar-row-title">⭐ 5-DAY ALL-ACCESS VIP</span>
-            <span class="pillar-row-price">£1,500</span>
+          <div class="pkg-row featured" id="pkg3">
+            <div class="pkg-row-left">
+              <div class="pkg-row-icon" style="background: rgba(255,215,0,0.25);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffd700" stroke="#ffd700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div>
+                <div class="pkg-row-title" style="color: #ffd700;">★ 5-DAY ALL-ACCESS VIP</div>
+                <div class="pkg-row-sub" style="color: #cbd5e1;">Oxford + Cambridge + Imperial</div>
+              </div>
+            </div>
+            <div class="pkg-row-price">£1,500</div>
           </div>
         </div>
       </div>
 
-      <!-- SCENE 4: (11.4s - 15.0s) CLIMAX -->
+      <!-- SCENE 4: (11.25s – 15.0s) -->
       <div class="scene" id="scene4">
-        <div class="kinetic-badge" id="s4Pill" style="border-color: #ef4444; color: #ff6b6b; margin-bottom: 8px; font-size: 0.8rem;">
-          ⚠️ STRICTLY 100 INVITATIONS
-        </div>
-        <h1 class="slam-title" id="s4Title" style="font-size: 2.8rem; line-height: 1.05; margin-bottom: 8px;">
-          CLAIM YOUR<br><span class="gold-shimmer">LEGACY</span>
-        </h1>
-        <div class="cta-box-kinetic" id="s4Box">
-          <div style="font-size: 0.75rem; color: #ffd700; font-weight: 800; letter-spacing: 1px; margin-bottom: 2px;">
-            APPLY FOR INVITATION:
+        <div class="text-mask" style="margin-bottom: 6px;">
+          <div class="text-line corporate-badge" id="s4Pill" style="border-color: #ef4444; color: #ff6b6b; font-size: 0.82rem;">
+            ⚠️ STRICTLY 100 INVITATIONS
           </div>
-          <a href="https://tally.so/r/NpzrWj" target="_blank" class="cta-url-kinetic">
-            TALLY.SO/R/NPZRWJ
+        </div>
+        <div class="text-mask">
+          <h1 class="text-line headline-large gold-shimmer-text" id="s4Title" style="font-size: 2.3rem;">
+            CLAIM YOUR LEGACY
+          </h1>
+        </div>
+        <div class="cta-glass-box" id="s4Box">
+          <div style="font-size: 0.72rem; color: #ffd700; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase;">
+            OFFICIAL DELEGATE REGISTRATION:
+          </div>
+          <a href="https://tally.so/r/NpzrWj" target="_blank" class="cta-link-text">
+            🔗 TALLY.SO/R/NPZRWJ
           </a>
         </div>
-        <div style="font-size: 0.85rem; font-weight: 800; color: #cbd5e1; margin-top: 6px;">
-          WWW.IBN.ORG.IN • LONDON 2026
+        <div class="text-mask">
+          <div class="text-line" id="s4Contact" style="font-size: 0.8rem; font-weight: 800; color: #cbd5e1; margin-top: 6px;">
+            WWW.IBN.ORG.IN • LONDON 2026
+          </div>
         </div>
       </div>
 
@@ -361,7 +453,7 @@
       </div>
     </div>
     <div style="display: flex; gap: 8px;">
-      <a href="cinematic_advert_15s.html" style="color: #ffd700; text-decoration: none; font-size: 0.78rem; font-weight: 700; padding: 6px 12px; border: 1px solid #d4af37; border-radius: 4px;">🖥️ 16:9 Cinema</a>
+      <a href="cinematic_advert_15s.html" style="color: #ffd700; text-decoration: none; font-size: 0.78rem; font-weight: 700; padding: 6px 12px; border: 1px solid var(--gold-primary); border-radius: 4px;">🖥️ 16:9 Cinema</a>
       <a href="index.html" style="color: #94a3b8; text-decoration: none; font-size: 0.78rem; font-weight: 600; padding: 6px 10px;">🌐 Event Site</a>
     </div>
     <input type="range" id="timeSlider" style="width: 100%; accent-color: #ffd700;" min="0" max="450" value="0" oninput="onSeek(this.value)">
@@ -370,36 +462,42 @@
   <script>
     const FPS = 30;
     const TOTAL_SECONDS = 15;
-    const TOTAL_FRAMES = FPS * TOTAL_SECONDS;
+    const TOTAL_FRAMES = FPS * TOTAL_SECONDS; // 450
     let currentFrame = 0;
     let isPlaying = false;
     let animTimer = null;
 
     const audio = document.getElementById('trailerAudio');
-    const shockwave = document.getElementById('shockwave');
-    const bigBen = document.getElementById('bigBen');
+    const flash = document.getElementById('flash');
+    const corpBg = document.getElementById('corpBg');
 
     const s1 = document.getElementById('scene1');
     const s2 = document.getElementById('scene2');
     const s3 = document.getElementById('scene3');
     const s4 = document.getElementById('scene4');
 
-    const logoWrap = document.getElementById('logoWrap');
-    const w1 = document.getElementById('w1');
-    const w2 = document.getElementById('w2');
-    const w3 = document.getElementById('w3');
+    const s1Lotus = document.getElementById('s1Lotus');
+    const s1Kicker = document.getElementById('s1Kicker');
+    const s1TitleL1 = document.getElementById('s1TitleL1');
+    const s1TitleL2 = document.getElementById('s1TitleL2');
     const s1Badge = document.getElementById('s1Badge');
 
-    const s2Title = document.getElementById('s2Title');
+    const s2Icon = document.getElementById('s2Icon');
     const s2Vip = document.getElementById('s2Vip');
+    const s2Title = document.getElementById('s2Title');
+    const s2Sub = document.getElementById('s2Sub');
+    const s2Badges = document.getElementById('s2Badges');
 
-    const p1 = document.getElementById('p1');
-    const p2 = document.getElementById('p2');
-    const p3 = document.getElementById('p3');
-    const p4 = document.getElementById('p4');
+    const s3Kicker = document.getElementById('s3Kicker');
+    const s3Title = document.getElementById('s3Title');
+    const pkg1 = document.getElementById('pkg1');
+    const pkg2 = document.getElementById('pkg2');
+    const pkg3 = document.getElementById('pkg3');
 
+    const s4Pill = document.getElementById('s4Pill');
     const s4Title = document.getElementById('s4Title');
     const s4Box = document.getElementById('s4Box');
+    const s4Contact = document.getElementById('s4Contact');
 
     function interpolate(frame, [inStart, inEnd], [outStart, outEnd]) {
       if (frame <= inStart) return outStart;
@@ -408,66 +506,106 @@
       return outStart + r * (outEnd - outStart);
     }
 
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - Math.min(Math.max(t, 0), 1), 3);
+    }
+
+    function animateMaskedLine(el, frame, triggerFrame, duration = 12) {
+      if (frame < triggerFrame) {
+        el.style.transform = 'translateY(110%)';
+        el.style.opacity = '0';
+      } else {
+        const progress = (frame - triggerFrame) / duration;
+        const eased = easeOutCubic(progress);
+        const y = (1 - eased) * 110;
+        el.style.transform = `translateY(${y}%)`;
+        el.style.opacity = Math.min(progress * 2, 1);
+      }
+    }
+
     function renderFrame(frame) {
-      if (frame < 114) {
-        s1.style.opacity = interpolate(frame, [0, 8], [0, 1]) * interpolate(frame, [100, 114], [1, 0]);
+      const bgZoom = 1.0 + (frame / TOTAL_FRAMES) * 0.08;
+      corpBg.style.transform = `scale(${bgZoom})`;
+
+      // SCENE 1
+      if (frame < 112) {
+        s1.style.opacity = interpolate(frame, [0, 8], [0, 1]) * interpolate(frame, [100, 112], [1, 0]);
         s2.style.opacity = 0;
         s3.style.opacity = 0;
         s4.style.opacity = 0;
-        bigBen.style.opacity = 0;
 
-        if (frame >= 2 && frame <= 25) {
-          const swScale = (frame - 2) * 0.25;
-          const swOp = 1.0 - (frame - 2) / 23;
-          shockwave.style.transform = `translate(-50%, -50%) scale(${swScale})`;
-          shockwave.style.opacity = Math.max(swOp, 0);
+        const lotusScale = frame < 15 ? interpolate(frame, [0, 15], [0.6, 1.0]) : 1.0;
+        s1Lotus.style.transform = `scale(${lotusScale})`;
+        s1Lotus.style.opacity = interpolate(frame, [0, 10], [0, 1]);
+
+        animateMaskedLine(s1Kicker, frame, 6, 10);
+        animateMaskedLine(s1TitleL1, frame, 16, 12);
+        animateMaskedLine(s1TitleL2, frame, 28, 12);
+        animateMaskedLine(s1Badge, frame, 44, 12);
+      }
+      // SCENE 2
+      else if (frame >= 112 && frame < 225) {
+        s1.style.opacity = 0;
+        s2.style.opacity = interpolate(frame, [112, 118], [0, 1]) * interpolate(frame, [214, 225], [1, 0]);
+        s3.style.opacity = 0;
+        s4.style.opacity = 0;
+
+        if (frame === 112 || frame === 113) {
+          flash.style.opacity = '0.6';
         } else {
-          shockwave.style.opacity = 0;
+          flash.style.opacity = '0';
         }
 
-        const logoScale = frame < 4 ? interpolate(frame, [0, 4], [2.2, 1.0]) : 1.0;
-        logoWrap.style.transform = `scale(${logoScale})`;
+        const iconScale = interpolate(frame, [112, 126], [0.8, 1.0]);
+        s2Icon.style.transform = `scale(${iconScale})`;
+        s2Icon.style.opacity = interpolate(frame, [112, 122], [0, 1]);
 
-        w1.style.opacity = frame >= 8 ? 1 : 0;
-        w2.style.opacity = frame >= 22 ? 1 : 0;
-        w3.style.opacity = frame >= 38 ? 1 : 0;
-        s1Badge.style.opacity = frame >= 50 ? 1 : 0;
+        animateMaskedLine(s2Vip, frame, 116, 10);
+        animateMaskedLine(s2Title, frame, 124, 12);
+        animateMaskedLine(s2Sub, frame, 136, 12);
+        animateMaskedLine(s2Badges, frame, 148, 12);
       }
-      else if (frame >= 114 && frame < 225) {
-        s1.style.opacity = 0;
-        s2.style.opacity = interpolate(frame, [114, 120], [0, 1]) * interpolate(frame, [212, 225], [1, 0]);
-        s3.style.opacity = 0;
-        s4.style.opacity = 0;
-
-        bigBen.style.opacity = interpolate(frame, [114, 122], [0, 0.7]) * interpolate(frame, [212, 225], [1, 0]);
-        s2Title.style.transform = `scale(${frame < 122 ? interpolate(frame, [114, 122], [2.0, 1.0]) : 1.0})`;
-        s2Vip.style.opacity = frame >= 118 ? 1 : 0;
-      }
-      else if (frame >= 225 && frame < 342) {
+      // SCENE 3
+      else if (frame >= 225 && frame < 337) {
         s1.style.opacity = 0;
         s2.style.opacity = 0;
-        s3.style.opacity = interpolate(frame, [225, 232], [0, 1]) * interpolate(frame, [330, 342], [1, 0]);
+        s3.style.opacity = interpolate(frame, [225, 232], [0, 1]) * interpolate(frame, [326, 337], [1, 0]);
         s4.style.opacity = 0;
-        bigBen.style.opacity = 0;
 
-        p1.classList.toggle('active', frame >= 240);
-        p1.style.opacity = frame >= 240 ? 1 : 0;
-        p2.classList.toggle('active', frame >= 262);
-        p2.style.opacity = frame >= 262 ? 1 : 0;
-        p3.classList.toggle('active', frame >= 284);
-        p3.style.opacity = frame >= 284 ? 1 : 0;
-        p4.classList.toggle('active', frame >= 306);
-        p4.style.opacity = frame >= 306 ? 1 : 0;
+        animateMaskedLine(s3Kicker, frame, 226, 10);
+        animateMaskedLine(s3Title, frame, 234, 12);
+
+        pkg1.classList.toggle('active', frame >= 242);
+        pkg2.classList.toggle('active', frame >= 256);
+        pkg3.classList.toggle('active', frame >= 270);
       }
+      // SCENE 4
       else {
         s1.style.opacity = 0;
         s2.style.opacity = 0;
         s3.style.opacity = 0;
-        s4.style.opacity = interpolate(frame, [342, 348], [0, 1]);
-        bigBen.style.opacity = 0;
+        s4.style.opacity = interpolate(frame, [337, 344], [0, 1]);
 
-        s4Title.style.transform = `scale(${frame < 352 ? interpolate(frame, [342, 352], [2.2, 1.0]) : 1.0})`;
-        s4Box.style.opacity = frame >= 356 ? 1 : 0;
+        if (frame === 337 || frame === 338) {
+          flash.style.opacity = '0.7';
+        } else {
+          flash.style.opacity = '0';
+        }
+
+        animateMaskedLine(s4Pill, frame, 340, 10);
+        animateMaskedLine(s4Title, frame, 346, 12);
+
+        const boxProgress = (frame - 356) / 14;
+        const boxEased = easeOutCubic(boxProgress);
+        if (frame < 356) {
+          s4Box.style.transform = 'translateY(30px)';
+          s4Box.style.opacity = '0';
+        } else {
+          s4Box.style.transform = `translateY(${(1 - boxEased) * 30}px)`;
+          s4Box.style.opacity = Math.min(boxProgress * 1.5, 1);
+        }
+
+        animateMaskedLine(s4Contact, frame, 368, 12);
       }
 
       document.getElementById('timeSlider').value = frame;
